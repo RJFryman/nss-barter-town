@@ -30,7 +30,21 @@ exports.register = function(req, res){
     });
   });
 };
+/*
+exports.destroy = function(req, res){
+  User.deleteById(req.params.id, function(count){
+    if(count === 1){
+      Item.deleteAllById(req.params.id, function(){
+        res.redirect('/');
+      });
+    };
+  });
+};
 
+exports.update = function(req, res){
+  
+};
+*/
 exports.login = function(req, res){
   User.findByEmailAndPassword(req.body.email, req.body.password, function(user){
     if(user){

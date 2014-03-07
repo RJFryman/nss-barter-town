@@ -46,6 +46,21 @@ User.prototype.insert = function(fn){
   });
 };
 
+// when delete we need to make sure all items with userId
+/*
+User.deleteById = function(id, fn){
+  var _id = Mongo.ObjectID(id);
+  users.remove({_id:_id}, function(err,count){
+    fn(count);
+  });
+};
+
+User.prototype.update = function(fn){
+  users.update({_id:this_id},this, function(err,count){
+    fn(count);
+  });
+};
+*/
 User.findById = function(id, fn){
   var _id = Mongo.ObjectID(id);
   users.findOne({_id:_id}, function(err, record){
