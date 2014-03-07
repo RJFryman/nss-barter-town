@@ -32,7 +32,7 @@ describe('user', function(){
       fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile));
 
       global.nss.db.dropDatabase(function(err, result){
-        u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
+        u1 = new User({name:'Adam Thede', email:'sam@adam.com', password:'1234'});
         u1.hashPassword(function(){
           u1.insert(function(){
             done();
@@ -70,7 +70,7 @@ describe('user', function(){
       request(app)
       .post('/register')
       .field('name', 'Adam Thede')
-      .field('email', 'adam@adam.com')
+      .field('email', 'sam@adam.com')
       .field('password', '1234')
       .attach('pic', filename)
       .end(function(err, res){
@@ -92,7 +92,7 @@ describe('user', function(){
     it('should login registered user', function(done){
       request(app)
       .post('/login')
-      .field('email', 'adam@adam.com')
+      .field('email', 'sam@adam.com')
       .field('password', '1234')
       .end(function(err, res){
         expect(res.body.success).to.be.true;
@@ -114,7 +114,7 @@ describe('user', function(){
     it('should not login user with wrong password', function(done){
       request(app)
       .post('/login')
-      .field('email', 'adam@adam.com')
+      .field('email', 'sam@adam.com')
       .field('password', 'kjdhfg')
       .end(function(err, res){
         expect(res.body.success).to.be.false;
@@ -135,7 +135,7 @@ describe('user', function(){
     beforeEach(function(done){
       request(app)
       .post('/login')
-      .field('email', 'adam@adam.com')
+      .field('email', 'sam@adam.com')
       .field('password', '1234')
       .end(function(err, res){
         cookie = res.headers['set-cookie'];

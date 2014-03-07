@@ -65,3 +65,23 @@ exports.removeOffer = function(req, res){
     });
   });
 };
+
+exports.accept = function(req, res){
+  Item.findById(req.params.item, function(item){
+    Item.findById(req.params.itemOffer, function(itemOffer){
+      var itemUserId = item.userId;
+      var itemOfferUserId = itemOffer.userId;
+      item.userId = itemOfferUserId;
+      itemOffer.userId = itemUserId;
+      itemOffer.toggleOffered();
+      item.update(function(){
+        itemOffer.update(function(){
+          item.sendAcceptEmail();
+          itemOffer.sendAcceptEmail();
+          res.redirect('/user/'+req.session.userId);
+        });
+      });
+    });
+  });
+};
+

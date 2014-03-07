@@ -9,7 +9,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var Mongo = require('mongodb');
 
-describe('User', function(){
+describe('Item', function(){
 
   before(function(done){
     var initMongo = require('../../app/lib/init-mongo');

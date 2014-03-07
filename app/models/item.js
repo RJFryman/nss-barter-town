@@ -6,6 +6,8 @@ var _ = require('lodash');
 var Mongo = require('mongodb');
 var items = global.nss.db.collection('items');
 var fs = require('fs');
+var User = require('./user');
+var request = require('request');
 
 function Item(data){
   this.name = data.name;
@@ -100,6 +102,22 @@ Item.deleteById = function(id, fn){
 
   items.remove({_id:_id}, function(err, count){
     fn(count);
+  });
+};
+
+Item.prototype.sendAcceptEmail = function(fn){
+  var self = this;
+  User.findById(this.userId.toString(), function(user){
+    var key = process.env.MAILGUN;
+    var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox46639.mailgun.org/messages';
+    var post = request.post(url, function(err, response, body){
+      fn();
+    });
+    var form = post.form();
+    form.append('from', 'robert.fryman@gmail.com');
+    form.append('to', user.email);
+    form.append('subject', 'You have successfully traded!');
+    form.append('text', 'Hello, ' + user.name + ', fire up your pickup, \'cause you\'ve got junk! You have successfully gotten '+self.name+' in return for some of your old junk! Got get that shit!');
   });
 };
 

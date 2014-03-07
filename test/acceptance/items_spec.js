@@ -149,4 +149,28 @@ describe('Item', function(){
       });
     });
   });
+
+  describe('POST /items/accept/:item/:itemOffer', function(){
+    it('should accept the trade', function(done){
+      var i2 = new Item({name:'bike', year:'2000', description:'red', cost:'500', tags:'excercise, sport', userId:u2._id.toString()});
+      i2.insert(function(){
+        request(app)
+        .post('/items/offers/'+i2._id.toString() +'/'+i1._id.toString())
+        .set('cookie', cookie)
+        .end(function(){
+          request(app)
+          .post('/login')
+          .field('email', 'robert.fryman@gmail.com')
+          .field('password', '1234')
+          .end(function(err, res){
+            var cookie1 = res.headers['set-cookie'];
+            request(app)
+            .post('/items/accept/'+i2._id.toString() +'/'+i1._id.toString())
+            .set('cookie', cookie1)
+            .expect(302, done);
+          });
+        });
+      });
+    });
+  });
 });

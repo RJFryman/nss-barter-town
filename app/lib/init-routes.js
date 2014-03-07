@@ -18,7 +18,7 @@ function load(app, fn){
   var items = require('../routes/items');
 
   app.get('/', d, home.index);
-  app.get('/test', d, home.test);
+//  app.get('/test', d, home.test);
   app.get('/register', d, users.auth);
   app.get('/users/:id', d, users.show);
   app.post('/items', d, items.create);
@@ -31,6 +31,7 @@ function load(app, fn){
   app.del('/items/:id', d, items.destroy);
   app.post('/items/offers/:item/:itemOffer', d, items.addOffer);
   app.del('/items/offers/:item/:itemOffer', d, items.removeOffer);
+  app.post('/items/accept/:item/:itemOffer', d, items.accept);
 //  app.put('/users/:id',d, users.update);
 //  app.delete('/users/:id', d, users.destroy);
   console.log('Routes Loaded');
