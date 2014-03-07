@@ -57,9 +57,10 @@ describe('User', function(){
       var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
       u1.hashPassword(function(){
         var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
-        u1.addPic(oldname);
-        expect(u1.pic).to.equal('/img/users/testfile-copy.jpg');
-        done();
+        u1.addPic(oldname, function(){
+          expect(u1.pic).to.equal('/img/users/testfile-copy.jpg');
+          done();
+        });
       });
     });
   });
@@ -69,10 +70,11 @@ describe('User', function(){
       var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
       u1.hashPassword(function(){
         var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
-        u1.addPic(oldname);
-        u1.insert(function(){
-          expect(u1._id.toString()).to.have.length(24);
-          done();
+        u1.addPic(oldname, function(){
+          u1.insert(function(){
+            expect(u1._id.toString()).to.have.length(24);
+            done();
+          });
         });
       });
     });
@@ -82,11 +84,12 @@ describe('User', function(){
       var u2 = new User({name:'John Thede', email:'adam@adam.com', password:'123'});
       u1.hashPassword(function(){
         var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
-        u1.addPic(oldname);
-        u1.insert(function(){
-          u2.insert(function(){
-            expect(u2._id).to.not.be.ok;
-            done();
+        u1.addPic(oldname, function(){
+          u1.insert(function(){
+            u2.insert(function(){
+              expect(u2._id).to.not.be.ok;
+              done();
+            });
           });
         });
       });
@@ -98,11 +101,12 @@ describe('User', function(){
       var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
       u1.hashPassword(function(){
         var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
-        u1.addPic(oldname);
-        u1.insert(function(){
-          User.findById(u1._id.toString(), function(record){
-            expect(record._id).to.deep.equal(u1._id);
-            done();
+        u1.addPic(oldname, function(){
+          u1.insert(function(){
+            User.findById(u1._id.toString(), function(record){
+              expect(record._id).to.deep.equal(u1._id);
+              done();
+            });
           });
         });
       });

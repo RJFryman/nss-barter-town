@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var users = global.nss.db.collection('users');
 var Mongo = require('mongodb');
+var request = require('request');
 
 module.exports= User;
 
@@ -44,6 +45,19 @@ User.prototype.insert = function(fn){
       fn(err);
     }
   });
+};
+
+User.prototype.sendRegistrationEmail = function(fn){
+  var key = process.env.MAILGUN;
+  var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox46639.mailgun.org/messages';
+  var post = request.post(url, function(err, response, body){
+    fn();
+  });
+  var form = post.form();
+  form.append('from', 'robert.fryman@gmail.com');
+  form.append('to', this.email);
+  form.append('subject', 'Welcome to Bartertown!');
+  form.append('text', 'Hello, ' + this.name + ', it\'s time to barter your crap.');
 };
 
 // when delete we need to make sure all items with userId
