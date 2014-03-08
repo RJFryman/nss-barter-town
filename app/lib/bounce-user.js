@@ -5,17 +5,13 @@ var _ = require('lodash');
 
 module.exports = function(req, res, next){
   var path = url.parse(req.url).pathname;
-  console.log(path);
-  var urls = ['/', '/register', '/login','/test','/items'];
+  var reg = /[0-9a-fA-F]{24}/;
+  var urls = ['/', '/register', '/login', '/items', '/items/new'];
 
   if(_.contains(urls, path)){
     next();
-  }else if(path === '/items/new'){
-    if(req.session.userId){
-      next();
-    }else{
-      res.redirect('/');
-    }
+  }else if(path.slice(0,7) === '/items/' && reg.test(path)){
+    next();
   }else{
     if(req.session.userId){
       next();

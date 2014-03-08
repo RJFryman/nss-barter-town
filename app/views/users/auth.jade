@@ -1,28 +1,19 @@
 extends ../shared/template
 
 block content
-  .row
-    .small-12.columns
-      h3 New to the app?  Create an account here:
-        .small-12.columns
-          form#register(action='/register', method='post', enctype='multipart/form-data')
-            fieldset
-              label Email
-              input(type='email', name='email', placeholder='you@yourplace.com', autofocus='true')
-              label Name
-              input(type='text', name='name')
-              label Password
-              input(type='password', name='password', placeholder='something secretive')
-              label Retype Password
-              input(type='password', name='password', placeholder='something secretive')
-              label Picture
-              input(type='file', name='pic')
-              .row
-                .small-6.columns
-                  label &nbsp
-                .small-6.columns
-                  label &nbsp
-                    button.tiny.radius.expand#register REGISTER
-              .row
-                .small-12.columns
-                  h5= registererror
+    .testreg.hide
+    .login-form-reg.hide
+      form(action='/register', method='post', enctype='multipart/form-data')
+        fieldset
+          legend Register
+          label Enter Name
+          input(type='text', name='name')
+          label Enter email
+          input(type='email', name='email')
+          label Enter Password
+          input(id='pw', type='password', name='password')
+          label Retype Password
+          input(id='pwcon', type='password')
+          label Profile Picture
+          input(type='file', name='pic')
+          button.tiny.radius.registerButton Register

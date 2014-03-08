@@ -69,6 +69,8 @@ exports.logout = function(req, res){
 
 exports.show = function(req, res){
   User.findById(req.params.id, function(user){
-    res.render('users/show', {validUser:user});
+    Item.findByUserId(req.params.id, function(items){
+      res.render('users/show', {showUser:user, items:items});
+    });
   });
 };
