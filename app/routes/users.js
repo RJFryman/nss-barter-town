@@ -77,11 +77,10 @@ exports.logout = function(req, res){
   });
 };
 
-
 exports.show = function(req, res){
-  User.findById(req.params.id, function(user){
+  User.findById(req.params.id, function(showUser){
     Item.findByUserId(req.params.id, function(items){
-      res.render('users/show', {showUser:user, items:items});
+      res.render('users/show', {showUser:showUser, items:items});
     });
   });
 };

@@ -15,17 +15,16 @@ block content
       table
         thead
           th Name
-          th Category
           th Year
           th Description
           th Cost
           th Tags
         tbody
           each item in items
-            td
-              a(href='/items/'+item._id.toString())= item.name
-            td= item.category
-            td= item.year
-            td= item.description
-            td= item.cost
-            td= item.tags.join(', ')
+            tr
+              td
+                a(href='/items/'+item._id.toString())= item.name
+              td= item.year
+              td= item.description
+              td= '$' + item.cost
+              td= item.tags.join(', ')

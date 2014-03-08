@@ -14,7 +14,8 @@ function Item(data){
   this.year = parseInt(data.year);
   this.description = data.description;
   this.photos = [];
-  this.cost = parseInt(data.cost);
+  this.cost = data.cost.replace(/[^0-9]/g,'');
+  this.cost = parseInt(this.cost);
   this.tags = data.tags.split(',').map(function(tag){return tag.trim();});
   this.tags = _.compact(this.tags);
   this.offered = false;
@@ -95,7 +96,6 @@ Item.findAll = function(fn){
 
 Item.findById = function(id, fn){
   var _id = Mongo.ObjectID(id);
-
   items.findOne({_id:_id}, function(err, record){
     fn(_.extend(record, Item.prototype));
   });

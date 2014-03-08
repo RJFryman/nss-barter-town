@@ -1,0 +1,46 @@
+extends ../shared/template
+
+block content
+  .row
+    .small-12.columns
+      h1= item.name + ' from ' + item.year + ' Estimated Value: $' + item.cost
+  .row
+    .small-12.columns
+      h2= 'Offered for trade by '
+        a(href= '/users/' + owner._id.toString())= owner.name
+  .row
+    .small-12.columns
+      each photo in item.photos
+        img(src= photo)
+  .row
+    .small-12.columns
+      h3= item.description
+  .row
+    .small-6.columns
+      h3 Items offered for this one
+      table
+        thead
+          th Name
+          th Year
+          th Description
+          th Cost
+          th Tags
+        tbody
+          each item in offers
+            tr
+              td
+                a(href='/items/'+item._id.toString())= item.name
+              td= item.year
+              td= item.description
+              td= item.cost
+              td= item.tags.join(', ')
+    .small-6.columns
+        h3 This item has been offered for...
+        if(item.offered)
+          table
+            thead
+              th Name
+              th Year
+              th Description
+              th Cost
+              th Tags
