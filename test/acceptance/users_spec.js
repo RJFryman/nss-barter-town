@@ -152,4 +152,27 @@ describe('user', function(){
       });
     });
   });
+
+  describe('PUT /users/:id', function(){
+    it('should show a user profile page', function(done){
+      request(app)
+      .put('/users/'+u1._id.toString())
+      .set('cookie', cookie)
+      .field('name', 'Julius')
+      .expect(302, done);
+    });
+  });
+
+  describe('Delete /users/:id', function(){
+    it('should delete a user', function(done){
+      request(app)
+      .del('/users/'+u1._id.toString())
+      .set('cookie', cookie)
+      .expect(302, done);
+    });
+  });
 });
+
+
+
+

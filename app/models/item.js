@@ -20,8 +20,27 @@ function Item(data){
   this.offered = false;
   this.userId = Mongo.ObjectID(data.userId);
   this.offers = [];
+  this.category = data.category;
 }
+/*
+Item.find = function(query, fn){
+  var limit = query.limit || 5;
+  var skip = query.page ? (query.page - 1) * limit : 0;
+  var filter = {};
+  var sort = [];
 
+  filter[query.filterName] = query.filterValue;
+
+  if(query.sort){
+    var direction = query.direction ? query.direction * 1 : 1;
+    sort.push([query.sort, direction]);
+  }
+
+  Item.find(filter, {sort:sort, skip:skip, limit:limit}).toArray(function(err, records){
+    fn(records);
+  });
+};
+*/
 Item.prototype.insert = function(fn){
   items.insert(this, function(err, record){
     fn(err);
@@ -82,10 +101,22 @@ Item.findById = function(id, fn){
   });
 };
 
+Item.findByCategory = function(category, fn){
+  items.find({category:category}).toArray(function(err, records){
+    fn(records);
+  });
+};
+
 Item.findByUserId = function(userId, fn){
   userId = Mongo.ObjectID(userId);
 
   items.find({userId:userId}).toArray(function(err, records){
+    fn(records);
+  });
+};
+
+Item.findByTag = function(tag, fn){
+  items.find({tags:tag}).toArray(function(err, records){
     fn(records);
   });
 };
@@ -121,23 +152,13 @@ Item.prototype.sendAcceptEmail = function(fn){
   });
 };
 
-/*
 Item.deleteAllByUserId = function(userId, fn){
   userId = Mongo.ObjectID(userId);
-  items.find({userId:userId}).toArray(function(err, records){
-    for(var i = 0; i < records.length; i++){
-      items.remove({userId:userId}, function(err, count){
-        fn(count);
-      });
-    };
+  items.remove({userId:userId}, function(err, count){
+    fn(count);
   });
 };
-*/
 
-/*
-Item.findBytags = function(tag, fn){
-  items.find({tags:tag}, function(err, records){
-    fn(records);
-  });
-};
-*/
+
+
+

@@ -32,8 +32,8 @@ function load(app, fn){
   app.post('/items/offers/:item/:itemOffer', d, items.addOffer);
   app.del('/items/offers/:item/:itemOffer', d, items.removeOffer);
   app.post('/items/accept/:item/:itemOffer', d, items.accept);
-//  app.put('/users/:id',d, users.update);
-//  app.delete('/users/:id', d, users.destroy);
+  app.put('/users/:id',d, users.update);
+  app.delete('/users/:id', d, users.destroy);
   console.log('Routes Loaded');
   fn();
 }

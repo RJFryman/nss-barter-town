@@ -172,4 +172,44 @@ describe('User', function(){
       });
     });
   });
+
+  describe('#update', function(){
+    it('should edit a user', function(done){
+      var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
+      var u2 = new User({name: 'Fryman', email:'fryman@fryman.com', password:'1234'});
+      u1.hashPassword(function(){
+        u2.hashPassword(function(){
+          u1.insert(function(){
+            u2.insert(function(){
+              u1.name = 'Robert';
+              u1.email = 'rjfryman@gmail.com';
+              u1.update(function(count){
+                expect(count).to.equal(1);
+                expect(u1.name).to.equal('Robert');
+                expect(u1.email).to.equal('rjfryman@gmail.com');
+                done();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+
+  describe('#delete', function(){
+    it('should delete a user', function(done){
+      var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
+      u1.hashPassword(function(){
+        u1.insert(function(){
+          var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
+          u1.addPic(oldname, function(){
+            User.deleteById(u1._id.toString(), function(count){
+              expect(count).to.equal(1);
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('../models/user');
+//var Item = require('../models/item');
 
 exports.auth = function(req, res){
   res.render('users/auth', {title: 'User Sign Up'});
@@ -22,21 +23,26 @@ exports.register = function(req, res){
     });
   });
 };
-/*
+
+
 exports.destroy = function(req, res){
   User.deleteById(req.params.id, function(count){
     if(count === 1){
-      Item.deleteAllById(req.params.id, function(){
-        res.redirect('/');
-      });
-    };
+//      Item.deleteAllById(req.params.id, function(){
+      res.redirect('/');
+  //    });
+    }
   });
 };
 
 exports.update = function(req, res){
-  
+  var user = new User(req.body);
+  user.update(function(){
+    //do we want a user profile page
+    res.redirect('/');
+  });
 };
-*/
+
 exports.login = function(req, res){
   User.findByEmailAndPassword(req.body.email, req.body.password, function(user){
     if(user){

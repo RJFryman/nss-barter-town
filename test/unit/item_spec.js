@@ -4,7 +4,7 @@
 
 process.env.DBNAME = 'bartertown-test';
 var expect = require('chai').expect;
-var User, Item, u1, u2;
+var User, Item, u1, u2, u3;
 var fs = require('fs');
 var exec = require('child_process').exec;
 var Mongo = require('mongodb');
@@ -32,12 +32,17 @@ describe('Item', function(){
       fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile1));
       global.nss.db.dropDatabase(function(err, result){
         u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
-        u2 = new User({name:'Chyld Medford', email:'athede@gmail.com', password:'4567'});
+        u2 = new User({name:'Robert Fryman', email:'robert.fryman@gmail.com', password:'4567'});
+        u3 = new User({name:'Nat Webb', email:'nat@nat.com', password:'abcd'});
         u1.hashPassword(function(){
           u2.hashPassword(function(){
-            u1.insert(function(){
-              u2.insert(function(){
-                done();
+            u3.hashPassword(function(){
+              u1.insert(function(){
+                u2.insert(function(){
+                  u3.insert(function(){
+                    done();
+                  });
+                });
               });
             });
           });
@@ -243,6 +248,44 @@ describe('Item', function(){
     });
   });
 
+  describe('.findByCategory', function(){
+    it('should find an array of items by category', function(done){
+      var i1 = new Item({name:'car', category:'car', year:'1969', description:'blue', cost:'1000', tags:'nice', userId:u1._id.toString()});
+      var i2 = new Item({name:'couch', category:'car', year:'1983', description:'brown', cost:'100', tags:'stained, springy', userId:u1._id.toString()});
+      var i3 = new Item({name:'box', category:'not car', year:'1912', description:'brown', cost:'1', tags:'stained, useful', userId:u2._id.toString()});
+      i1.insert(function(){
+        i2.insert(function(){
+          i3.insert(function(){
+            Item.findByCategory(i1.category, function(items){
+              expect(items.length).to.equal(2);
+              expect(items[0]._id.toString()).to.have.length(24);
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
+
+  describe('.findByTags', function(){
+    it('should find an array of items by tag', function(done){
+      var i1 = new Item({name:'car', category:'car', year:'1969', description:'blue', cost:'1000', tags:'nice', userId:u1._id.toString()});
+      var i2 = new Item({name:'couch', category:'car', year:'1983', description:'brown', cost:'100', tags:'stained, springy', userId:u1._id.toString()});
+      var i3 = new Item({name:'box', category:'not car', year:'1912', description:'brown', cost:'1', tags:'stained, useful', userId:u2._id.toString()});
+      i1.insert(function(){
+        i2.insert(function(){
+          i3.insert(function(){
+            Item.findByTag(i2.tags[0], function(items){
+              expect(items.length).to.equal(2);
+              expect(items[0]._id.toString()).to.have.length(24);
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
+
   describe('.removeOffer', function(){
     it('should remove an offer from the offers array', function(done){
       var i1 = new Item({name:'car', year:'1969', description:'blue', cost:'1000', tags:'nice', userId:u1._id.toString()});
@@ -261,4 +304,44 @@ describe('Item', function(){
       });
     });
   });
+
+  describe('.deleteAllByUserId', function(){
+    it('should delete multiple items', function(done){
+      var i1 = new Item({name:'car', category:'car', year:'1969', description:'blue', cost:'1000', tags:'nice', userId:u1._id.toString()});
+      var i2 = new Item({name:'couch', category:'car', year:'1983', description:'brown', cost:'100', tags:'stained, springy', userId:u1._id.toString()});
+      var i3 = new Item({name:'box', category:'not car', year:'1912', description:'brown', cost:'1', tags:'stained, useful', userId:u2._id.toString()});
+      i1.insert(function(){
+        i2.insert(function(){
+          i3.insert(function(){
+            Item.deleteAllByUserId(u1._id.toString(), function(count){
+              expect(count).to.equal(2);
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
+/*
+  describe('.find', function(){
+    beforeEach(function(done){
+      var u1id = u1._id.toString();
+      var u2id = u2._id.toString();
+      var u3id = u3._id.toString();
+
+      var i1 ={name:'mustang', year:'1969', description:'fast', cost:'1500', tags:'fast,like-new', userId:u1id, category:'car'}
+      var i2 ={name:'}
+      var i3 ={}
+      var i4 ={}
+      var i5 ={}
+      var i6 ={}
+      var i7 ={}
+      var i8 ={}
+      var i9 ={}
+      var ia ={}
+      var ib ={}
+      var ic ={}
+      var id ={}
+      var ie ={}
+      */
 });
