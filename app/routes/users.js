@@ -14,10 +14,21 @@ exports.register = function(req, res){
       user.insert(function(){
         if(user._id){
           user.sendRegistrationEmail(function(){
-            res.redirect('/');
+            User.findByEmailAndPassword(req.body.email, req.body.password, function(user){
+              if(user){
+                req.session.regenerate(function(){
+                  req.session.userId = user._id.toString();
+                  req.session.save(function(){
+                    res.redirect('/');
+                  });
+                });
+              } else {
+                res.send({success:false});
+              }
+            });
           });
         }else{
-          res.redirect('/register');
+          res.send({success:false});
         }
       });
     });

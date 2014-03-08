@@ -26,6 +26,22 @@ html(class='no-js', lang='en')
           input(type='password', name='password')
           button.tiny.radius.loginButton Login
 
+    .login-form-reg.hide
+      form(action='/register', method='post', enctype='multipart/form-data')
+        fieldset
+          legend Register
+          label Enter Name
+          input(type='text', name='name')
+          label Enter email
+          input(type='email', name='email')
+          label Enter Password
+          input(id='pw', type='password', name='password')
+          label Retype Password
+          input(id='pwcon', type='password')
+          label Profile Picture
+          input(type='file', name='pic')
+          button.tiny.radius.registerButton Register
+
     nav.top-bar
       ul.title-area
         li.name
@@ -42,7 +58,7 @@ html(class='no-js', lang='en')
             li: form(action='/logout', method='post'): button.tiny.radius.logout Logout
           else
             li.divider
-            li: a(href='/register') Register
+            li.togglelinkreg: a(href='#') Register
             li.divider
             li.togglelink: a(href='#') Login
 

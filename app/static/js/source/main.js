@@ -6,11 +6,11 @@
 
   function initialize(){
     $(document).foundation();
-    loadRegistrationPop();
     $('.togglelink').click(loadLoginPop);
+    $('.togglelinkreg').click(loadRegistrationPop);
     $('.loginButton').click(loginUser);
   }
-  
+
   function loginUser(event){
     var url = '/login';
     var type = 'POST';
@@ -28,7 +28,7 @@
     }
   }
   function loadRegistrationPop(){
-    $('.testreg').fadeIn(500);
+    $('.test').fadeIn(500);
     $('.login-form-reg').fadeIn(800);
   }
 
