@@ -1,7 +1,9 @@
 'use strict';
 
 var Item = require('../models/item');
+var User = require('../models/user');
 var exec = require('child_process').exec;
+var _ = require('lodash');
 
 exports.index = function(req, res){
   res.render('items/index');
@@ -13,7 +15,14 @@ exports.new = function(req, res){
 
 exports.show = function(req, res){
   Item.findById(req.params.id, function(item){
-    res.render('items/show', {item:item});
+    User.findById(item.userId.toString(), function(owner){
+      var offers = _.map(item.offers, function(e){
+        Item.findById(e._id.toString(), function(foundOffer){
+          return foundOffer;
+        });
+      });
+      res.render('items/show', {item:item, owner:owner, offers:offers});
+    });
   });
 };
 
