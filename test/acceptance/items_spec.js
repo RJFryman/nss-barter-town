@@ -112,7 +112,7 @@ describe('Item', function(){
     });
   });
 
-  describe('DEL /items', function(){
+  describe('DEL /items/:id', function(){
     it('should delete an item', function(done){
       request(app)
       .del('/items/'+i1._id.toString())

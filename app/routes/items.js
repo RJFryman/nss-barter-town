@@ -1,26 +1,33 @@
 'use strict';
 
 var Item = require('../models/item');
+var User = require('../models/user');
 var exec = require('child_process').exec;
+var _ = require('lodash');
 
 exports.index = function(req, res){
-  console.log('GET TO ITEMS INDEX');
   res.render('items/index');
 };
 
 exports.new = function(req, res){
-  console.log('GET TO ITEMS NEW');
   res.render('items/new');
 };
 
 exports.show = function(req, res){
-  console.log('GET TO ITEMS SHOW');
   Item.findById(req.params.id, function(item){
-    res.render('items/show', {item:item});
+    User.findById(item.userId.toString(), function(owner){
+      var offers = _.map(item.offers, function(e){
+        Item.findById(e._id.toString(), function(foundOffer){
+          return foundOffer;
+        });
+      });
+      res.render('items/show', {item:item, owner:owner, offers:offers});
+    });
   });
 };
 
 exports.create = function(req, res){
+  req.body.userId = req.session.userId;
   var item = new Item(req.body);
   item.insert(function(){
     item.mkDir(function(){
@@ -84,4 +91,3 @@ exports.accept = function(req, res){
     });
   });
 };
-

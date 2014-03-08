@@ -13,7 +13,8 @@
     "bcrypt":        "*",
     "connect-redis": "*",
     "jade":          "*",
-    "express-less":  "*"
+    "express-less":  "*",
+    "request":       "*"
   },
   "devDependencies": {
     "grunt":                "*",

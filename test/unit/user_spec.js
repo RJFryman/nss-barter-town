@@ -104,6 +104,7 @@ describe('User', function(){
         u1.addPic(oldname, function(){
           u1.insert(function(){
             User.findById(u1._id.toString(), function(record){
+              expect(record.name).to.equal('Adam Thede');
               expect(record._id).to.deep.equal(u1._id);
               done();
             });
@@ -196,16 +197,18 @@ describe('User', function(){
     });
   });
 
-  describe('#delete', function(){
+  describe('.deleteById', function(){
     it('should delete a user', function(done){
       var u1 = new User({name:'Adam Thede', email:'adam@adam.com', password:'1234'});
       u1.hashPassword(function(){
         u1.insert(function(){
           var oldname = __dirname + '/../fixtures/testfile-copy.jpg';
           u1.addPic(oldname, function(){
-            User.deleteById(u1._id.toString(), function(count){
-              expect(count).to.equal(1);
-              done();
+            u1.update(function(){
+              User.deleteById(u1._id.toString(), function(count){
+                expect(count).to.equal(1);
+                done();
+              });
             });
           });
         });

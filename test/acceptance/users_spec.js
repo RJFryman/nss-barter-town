@@ -24,18 +24,25 @@ describe('user', function(){
 
   beforeEach(function(done){
     var testdir = __dirname + '/../../app/static/img/test*';
-    var cmd = 'rm ' + testdir;
+    var cmd = 'rm -rf ' + testdir;
 
     exec(cmd, function(){
       var origfile = __dirname + '/../fixtures/testfile.jpg';
       var copyfile = __dirname + '/../fixtures/testfile-copy.jpg';
+      var copyfile1 = __dirname + '/../fixtures/testfile-copy1.jpg';
       fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile));
+      fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile1));
 
       global.nss.db.dropDatabase(function(err, result){
         u1 = new User({name:'Adam Thede', email:'sam@adam.com', password:'1234'});
         u1.hashPassword(function(){
           u1.insert(function(){
-            done();
+            var oldname = __dirname + '/../fixtures/testfile-copy1.jpg';
+            u1.addPic(oldname, function(){
+              u1.update(function(){
+                done();
+              });
+            });
           });
         });
       });
@@ -146,13 +153,23 @@ describe('user', function(){
     describe('GET /users/:id', function(){
       it('should show a user profile page', function(done){
         request(app)
-        .get('/users/'+u1._id.toString())
+        .get('/users/' + u1._id.toString())
         .set('cookie', cookie)
         .expect(200, done);
       });
     });
-  });
 
+    describe('DELETE /users/:id', function(){
+      it('should delete a user', function(done){
+        request(app)
+        .del('/users/' + u1._id.toString())
+        .set('cookie', cookie)
+        .expect(302, done);
+      });
+    });
+  });
+});
+/*
   describe('PUT /users/:id', function(){
     it('should show a user profile page', function(done){
       request(app)
@@ -162,17 +179,4 @@ describe('user', function(){
       .expect(302, done);
     });
   });
-
-  describe('Delete /users/:id', function(){
-    it('should delete a user', function(done){
-      request(app)
-      .del('/users/'+u1._id.toString())
-      .set('cookie', cookie)
-      .expect(302, done);
-    });
-  });
-});
-
-
-
-
+*/

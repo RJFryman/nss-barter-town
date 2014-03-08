@@ -21,10 +21,11 @@ function load(app, fn){
 //  app.get('/test', d, home.test);
   app.get('/register', d, users.auth);
   app.get('/users/:id', d, users.show);
-  app.post('/items', d, items.create);
+  app.del('/users/:id', d, users.destroy);
   app.post('/register', d, users.register);
   app.post('/login', d, users.login);
   app.post('/logout', d, users.logout);
+  app.post('/items', d, items.create);
   app.get('/items', d, items.index);
   app.get('/items/new', d, items.new);
   app.get('/items/:id', d, items.show);
@@ -32,8 +33,7 @@ function load(app, fn){
   app.post('/items/offers/:item/:itemOffer', d, items.addOffer);
   app.del('/items/offers/:item/:itemOffer', d, items.removeOffer);
   app.post('/items/accept/:item/:itemOffer', d, items.accept);
-  app.put('/users/:id',d, users.update);
-  app.delete('/users/:id', d, users.destroy);
+//  app.put('/users/:id',d, users.update);
   console.log('Routes Loaded');
   fn();
 }

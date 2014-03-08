@@ -2,6 +2,7 @@
 var bcrypt = require('bcrypt');
 var path = require('path');
 var fs = require('fs');
+var exec = require('child_process').exec;
 var users = global.nss.db.collection('users');
 var Mongo = require('mongodb');
 var request = require('request');
@@ -60,12 +61,16 @@ User.prototype.sendRegistrationEmail = function(fn){
   form.append('text', 'Hello, ' + this.name + ', it\'s time to barter your crap.');
 };
 
-// when delete we need to make sure all items with userId
-
 User.deleteById = function(id, fn){
   var _id = Mongo.ObjectID(id);
-  users.remove({_id:_id}, function(err,count){
-    fn(count);
+  User.findById(id, function(user){
+    console.log('USER PIC PATH: ' + user.pic);
+    var cmd = 'rm -rf ' + __dirname + '/../static' + user.pic;
+    exec(cmd, function(){
+      users.remove({_id:_id}, function(err,count){
+        fn(count);
+      });
+    });
   });
 };
 

@@ -267,7 +267,7 @@ describe('Item', function(){
     });
   });
 
-  describe('.findByTags', function(){
+  describe('.findByTag', function(){
     it('should find an array of items by tag', function(done){
       var i1 = new Item({name:'car', category:'car', year:'1969', description:'blue', cost:'1000', tags:'nice', userId:u1._id.toString()});
       var i2 = new Item({name:'couch', category:'car', year:'1983', description:'brown', cost:'100', tags:'stained, springy', userId:u1._id.toString()});
