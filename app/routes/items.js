@@ -13,6 +13,12 @@ exports.new = function(req, res){
   res.render('items/new');
 };
 
+exports.find = function(req, res){
+  Item.find(req.query, function(items){
+    res.send({items:items});
+  });
+};
+
 exports.show = function(req, res){
   Item.findById(req.params.id, function(item){
     User.findById(item.userId.toString(), function(owner){
