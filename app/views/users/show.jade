@@ -19,6 +19,7 @@ block content
           th Description
           th Cost
           th Tags
+          th
         tbody
           each item in items
             tr
@@ -28,3 +29,8 @@ block content
               td= item.description
               td= '$' + item.cost
               td= item.tags.join(', ')
+              if user._id.toString() === showUser._id.toString()
+                td
+                  form(action='/items/'+item._id.toString(), method='POST')
+                    input(type='hidden', name='_method', value='delete')
+                    button.alert.tiny Delete Item

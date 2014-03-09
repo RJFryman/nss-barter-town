@@ -14,7 +14,7 @@ function Item(data){
   this.year = parseInt(data.year);
   this.description = data.description;
   this.photos = [];
-  this.cost = data.cost.replace(/[^0-9]/g,'');
+  this.cost = data.cost.replace(/[^0-9.]/g,'');
   this.cost = parseInt(this.cost);
   this.tags = data.tags.split(',').map(function(tag){return tag.trim();});
   this.tags = _.compact(this.tags);
@@ -132,9 +132,8 @@ Item.findByTag = function(tag, fn){
 };
 
 Item.prototype.removeOffer = function(itemId){
-  var id = Mongo.ObjectID(itemId);
   _.remove(this.offers, function(item){
-    return item === id;
+    return item.toString() === itemId;
   });
 };
 
