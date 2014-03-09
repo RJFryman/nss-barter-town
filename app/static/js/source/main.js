@@ -65,7 +65,7 @@
     ctx.putImageData(photograph, 0, 0);
     
     event.preventDefault();
-    }
+  }
 
 })();
 
