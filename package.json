@@ -14,7 +14,8 @@
     "connect-redis": "*",
     "jade":          "*",
     "express-less":  "*",
-    "request":       "*"
+    "request":       "*",
+    "zurb-foundation": "*"
   },
   "devDependencies": {
     "grunt":                "*",

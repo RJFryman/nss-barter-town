@@ -11,6 +11,7 @@ html(class='no-js', lang='en')
     script(src='/js/vendor/modernizr.js')
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')
+    script(src='/js/vendor/foundation.topbar.js')
     script(src='/js/vendor/lodash.js')
     script(src='/js/vendor/moment.js')
     script(src='/js/source/main.js')
@@ -21,17 +22,21 @@ html(class='no-js', lang='en')
         fieldset
           legend Login
           label Enter email
-          input(type='email', name='email')
+          input(type='email', name='email', autofocus)
+          label.login-err
           label Enter Password
           input(type='password', name='password')
+          label.login-err
           button.tiny.radius.loginButton Login
+          .closelogin x
+
 
     .login-form-reg.hide
       form(action='/register', method='post', enctype='multipart/form-data')
         fieldset
           legend Register
           label Enter Name
-          input(type='text', name='name')
+          input(type='text', name='name', autofocus )
           label Enter email
           input(type='email', name='email')
           label Enter Password
@@ -41,20 +46,22 @@ html(class='no-js', lang='en')
           label Profile Picture
           input(type='file', name='pic')
           button.tiny.radius.registerButton Register
+          .closeReg x
 
     nav.top-bar
       ul.title-area
         li.name
-          h1: a(href="/") Sweet Your Junk
+          h1: a(href="/") Home
         li.toggle-topbar.menu-icon
           a(href="#") Menu
 
       section.top-bar-section
         ul.left
+          li: a(href="/items") Sweet junk
         ul.right
-          li: a(href="/") Home
-          li.divider
           if user
+            li: a(href="/users/"+user._id.toString())=user.email
+            li.divider
             li: form(action='/logout', method='post'): button.tiny.radius.logout Logout
           else
             li.divider
