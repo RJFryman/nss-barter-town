@@ -36,18 +36,27 @@ html(class='no-js', lang='en')
       form(action='/register', method='post', enctype='multipart/form-data')
         fieldset
           legend Register
-          label Enter Name
-          input(type='text', name='name', autofocus )
-          label Enter email
-          input(type='email', name='email')
-          label Enter Password
-          input(id='pw', type='password', name='password')
-          label Retype Password
-          input(id='pwcon', type='password')
-          label Profile Picture
-          input(type='file', name='pic')
-          button.tiny.radius.registerButton Register
-          .closeReg x
+          .row
+            .small-6.columns
+              label Enter Name
+              input(type='text', name='name', autofocus )
+              label Enter email
+              input(type='email', name='email')
+              label Enter Password
+              input(id='pw', type='password', name='password')
+              label Retype Password
+              input(id='pwcon', type='password')
+              label Profile Picture
+              input(type='file', name='pic')
+            .small-6.columns
+              #videostuff
+                video(width='275', height='206.25', autoplay='autoplay', muted='true')
+              #camerastuff
+                button.tiny.radius.alert.expand#capture Take Picture
+              canvas#canvas(width='275', height='206.25')
+              label &nbsp
+              button.tiny.radius.registerButton Register
+              .closeReg x
 
     nav.top-bar
       ul.title-area
