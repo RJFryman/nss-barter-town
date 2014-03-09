@@ -23,12 +23,22 @@ function Item(data){
   this.offers = [];
   this.category = data.category;
 }
-/*
+
 Item.find = function(query, fn){
-  var limit = query.limit || 5;
+  var limit = query.limit || 10;
   var skip = query.page ? (query.page - 1) * limit : 0;
   var filter = {};
   var sort = [];
+
+  if(query.filterName === 'userId'){
+    query.filterValue = Mongo.ObjectID(query.filterValue);
+  }else if(query.filterName === 'year'){
+    query.filterValue = parseInt(query.filterValue);
+  }else if(query.filterName === 'description'){
+    query.filterValue = new RegExp(query.filterValue);
+  }else if(query.filterName === 'name'){
+    query.filterValue = new RegExp(query.filterValue);
+  }
 
   filter[query.filterName] = query.filterValue;
 
@@ -37,11 +47,11 @@ Item.find = function(query, fn){
     sort.push([query.sort, direction]);
   }
 
-  Item.find(filter, {sort:sort, skip:skip, limit:limit}).toArray(function(err, records){
+  items.find(filter, {sort:sort, skip:skip, limit:limit}).toArray(function(err, records){
     fn(records);
   });
 };
-*/
+
 Item.prototype.insert = function(fn){
   items.insert(this, function(err, record){
     fn(err);
