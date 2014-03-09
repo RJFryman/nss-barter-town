@@ -322,26 +322,233 @@ describe('Item', function(){
       });
     });
   });
-/*
+
   describe('.find', function(){
     beforeEach(function(done){
-      var u1id = u1._id.toString();
-      var u2id = u2._id.toString();
-      var u3id = u3._id.toString();
+      global.nss.db.dropDatabase(function(err, result){
+        var u1id = u1._id.toString();
+        var u2id = u2._id.toString();
+        var u3id = u3._id.toString();
 
-      var i1 ={name:'mustang', year:'1969', description:'fast', cost:'1500', tags:'fast,like-new', userId:u1id, category:'car'}
-      var i2 ={name:'}
-      var i3 ={}
-      var i4 ={}
-      var i5 ={}
-      var i6 ={}
-      var i7 ={}
-      var i8 ={}
-      var i9 ={}
-      var ia ={}
-      var ib ={}
-      var ic ={}
-      var id ={}
-      var ie ={}
-      */
+
+        var i1 ={name:'mustang', year:'1969', photos:['1','2'], description:'fast', cost:'1500', tags:'fast,like-new,a', userId:u1id, category:'car'};
+        var i2 ={name:'couch', year:'1989', description:'testing to see if you find fast', photos:['1'], cost:'100', tags:'fast, super,cool', userId:u1id, category:'funiture'};
+        var i3 ={name:'nameless car', photos:['1'], year:'1990', cost:'50', tags:'great,super,a', userId:u1id, category:'car'};
+        var i4 ={name:'stuff', year:'2010', cost:'1000', tags:'look,a', userId:u2id, category:'stuff'};
+        var i5 ={name:'things', year:'2000', cost:'500', tags:'at,all,a', userId:u2id, category:'stuff'};
+        var i6 ={name:'crap', year:'1998', cost:'400', tags:'there,a', userId:u1id, category:'car'};
+        var i7 ={name:'stuff', year:'2004', cost:'350', tags:'great', userId:u3id, categoty:'computers'};
+        var i8 ={name:'more crap', year:'1999', cost:'400', tags:'tags', userId:u3id, category:'crap'};
+        var i9 ={name:'super cool stuff', description:'super fast', year:'2010', cost:'200', tags:'should,i', userId:u1id, category:'free'};
+        var ia ={name:'stuff', year:'2000', cost:'700', tags:'get,programers', userId:u1id, category:'come'};
+        var ib ={name:'money', year:'1990', cost:'100', tags:'Dvorak', userId:u1id, category:'get'};
+        var ic ={name:'apple', year:'1999', description:'slow', cost:'200', tags:'might', userId:u1id, category:'me'};
+        var id ={name:'tesy', year:'2000', cost:'350', tags:'help', userId:u2id, category:'mother'};
+        var ie ={name:'thing', year:'2014', cost:'500', tags:'', userId:u2id, category:'truckers'};
+        (new Item(i1)).insert(function(){
+          (new Item(i2)).insert(function(){
+            (new Item(i3)).insert(function(){
+              (new Item(i4)).insert(function(){
+                (new Item(i5)).insert(function(){
+                  (new Item(i6)).insert(function(){
+                    (new Item(i7)).insert(function(){
+                      (new Item(i8)).insert(function(){
+                        (new Item(i9)).insert(function(){
+                          (new Item(ia)).insert(function(){
+                            (new Item(ib)).insert(function(){
+                              (new Item(ic)).insert(function(){
+                                (new Item(id)).insert(function(){
+                                  (new Item(ie)).insert(function(){
+                                    done();
+                                  });
+                                });
+                              });
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+    it('should find all taks - page 1,10 per page', function(done){
+      var query = {};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        done();
+      });
+    });
+    it('should find all task - page 1, 7 per page', function(done){
+      var query = {limit:'7'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(7);
+        done();
+      });
+    });
+    it('should find all task - page 1, 12 per page', function(done){
+      var query = {limit:'12'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(12);
+        done();
+      });
+    });
+    it('should find all task page 2 4 task remaining', function(done){
+      var query = {page:'2'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(4);
+        done();
+      });
+    });
+    it('should find all task page 2 with 5 limit', function(done){
+      var query = {limit:'5', page:'2'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(5);
+        expect(items[0].name).to.equal('crap');
+        done();
+      });
+    });
+    it('should filer all tasks by tags', function(done){
+      var query = {filterName:'tags', filterValue:'fast'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(2);
+        done();
+      });
+    });
+    it('should filter all tasks by year', function(done){
+      var query = {filterName:'year', filterValue:'2000'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(3);
+        done();
+      });
+    });
+    it('should filter all tasks by userId', function(done){
+      var id = u1._id.toString();
+      var query = {filterName:'userId', filterValue:id};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(8);
+        done();
+      });
+    });
+    it('should filter all tasks by category', function(done){
+      var query = {filterName:'category', filterValue:'car'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(3);
+        done();
+      });
+    });
+    it('should filter by name', function(done){
+      var query = {filterName:'name', filterValue:'stuff'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(4);
+        done();
+      });
+    });
+    it('should filter by has description', function(done){
+      var query = {filterName:'description', filterValue:'fast'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(3);
+        done();
+      });
+    });
+    it('should sort all name', function(done){
+      var query = {sort:'name'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('apple');
+        done();
+      });
+    });
+    it('should sort all name', function(done){
+      var query = {sort:'year'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('mustang');
+        done();
+      });
+    });
+    it('should sort all name', function(done){
+      var query = {sort:'year', direction:'-1'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('thing');
+        done();
+      });
+    });
+    it('should sort all cost', function(done){
+      var query = {sort:'cost'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('nameless car');
+        done();
+      });
+    });
+    it('should sort all cost', function(done){
+      var query = {sort:'cost', direction:'-1'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('mustang');
+        done();
+      });
+    });
+    it('should sort all category', function(done){
+      var query = {sort:'category'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('stuff');
+        done();
+      });
+    });
+    it('should sort all category', function(done){
+      var query = {sort:'category', direction:'-1'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(10);
+        expect(items[0].name).to.equal('thing');
+        done();
+      });
+    });
+    it('should filter and sort all the things', function(done){
+      var query = {page:'2', limit:'2', filterName:'tags', filterValue:'a', sort:'cost', direction:'1'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(2);
+        expect(items[0].name).to.equal('things');
+        done();
+      });
+    });
+    /*
+    it('should filter by has photo', function(done){
+      var query = {filterName:'photos'};
+
+      Item.find(query, function(items){
+        expect(items).to.have.length(3);
+        done();
+      });
+    });
+    */
+
+
+  });
 });
