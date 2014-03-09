@@ -16,10 +16,10 @@
   }
 
   function sortitems(event){
-    if($(this).hasClass('isComplete')){
-      query.sort = 'isComplete';
+    if($(this).hasClass('year')){
+      query.sort = 'year';
     }else{
-      query.sort = 'dueDate';
+      query.sort = 'cost';
     }
 
     query.direction *= -1;
@@ -61,7 +61,7 @@
   }
 
   function generateQuery(){
-    var url = '/items';
+    var url = '/find';
     var data = query;
     var type = 'GET';
     var success = additemsToTable;
@@ -70,7 +70,7 @@
   }
 
   function getAllitems(){
-    var url ='/items';
+    var url ='/find';
     var type = 'GET';
     var success = additemsToTable;
 
@@ -99,13 +99,17 @@
 
     $name.text(item.name);
     $year.append('<a class="filter year" href="#">'+item.year+'</a>');
-    $description.text(item.description.slice(0,50+'...'));
+    if(item.description.length >= 180){
+      $description.text(item.description.toString().slice(0,179)+'...');
+    }else{
+      $description.text(item.description);
+    }
     $cost.append('<a class="filter cost" href="#">'+item.cost+'</a>');
     $category.append('<a class="filter category" href="#">'+item.category+'</a>');
 
     for(var i = 0; i < item.tags.length; i++){
       var tag = item.tags[i];
-      $tags.append('<a class="filter tags" href="#">'+tag+'</a>');
+      $tags.append('<a class="filter tags" href="#">'+tag+'</a>'+ ' ' );
     }
 
     $row.append($name, $year, $description, $cost, $tags, $category);
