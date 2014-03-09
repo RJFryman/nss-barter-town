@@ -44,7 +44,7 @@ block content
               td
                 a(href='/items/'+offer._id.toString())= offer.name
               td= offer.year
-              td= offer.cost
+              td= '$' + offer.cost
               td= offer.tags.join(', ')
               td
                 if user
@@ -55,7 +55,7 @@ block content
                   if owner._id.toString() === user._id.toString()
                     form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
                       input(type='hidden', name='_method', value='delete')
-                      button.alert.tiny Remove Offer
+                      button.alert.tiny Reject Offer
               td
                 if user
                   if owner._id.toString() === user._id.toString()
