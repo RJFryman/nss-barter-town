@@ -97,12 +97,13 @@ exports.accept = function(req, res){
       var itemOfferUserId = itemOffer.userId;
       item.userId = itemOfferUserId;
       itemOffer.userId = itemUserId;
+      item.removeOffer(req.params.itemOffer);
       itemOffer.toggleOffered();
       item.update(function(){
         itemOffer.update(function(){
           item.sendAcceptEmail();
           itemOffer.sendAcceptEmail();
-          res.redirect('/user/'+req.session.userId);
+          res.redirect('/users/'+req.session.userId);
         });
       });
     });
