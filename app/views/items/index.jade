@@ -5,28 +5,27 @@ block js
 
 block content
   body
-    if item
-      .row
-        .small-12.columns
-          table#items
-            thead
-              tr
-                th Name
-                th: a.sort.year(href='#') Year
-                th Description
-                th: a.sort.cost(href='#') Cost
-                th Tags
-                th Castegory
-            tbody
-      .row
-        .small-2.columns
-          input#limit(type='text', placeholder='limit')
-        .small-5.columns
-          p
-        .small-2.columns
-          button#prev.tiny.radius.expand Previous
-        .small-1.columns
-          p#page 1
+    .row
+      .small-12.columns
+        table#items
+          thead
+            tr
+              th Name
+              th: a.sort.year(href='#') Year
+              th Description
+              th: a.sort.cost(href='#') Cost
+              th Tags
+              th Category
+          tbody
+    .row
       .small-2.columns
-        button#next.tiny.radius.expand Next
+        input#limit(type='text', placeholder='limit')
+      .small-5.columns
+        p
+      .small-2.columns
+        button#prev.tiny.radius.expand Previous
+      .small-1.columns
+        p#page 1
+    .small-2.columns
+      button#next.tiny.radius.expand Next
 

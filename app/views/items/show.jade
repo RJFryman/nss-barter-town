@@ -51,17 +51,18 @@ block content
                 td
                   if user
                     if offer.userId.toString() === user._id.toString()
-                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure you want to remove this offer?')")
                         input(type='hidden', name='_method', value='delete')
                         button.alert.tiny Remove Offer
                     if owner._id.toString() === user._id.toString()
-                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure you want to reject this offer?')")
                         input(type='hidden', name='_method', value='delete')
-                        button.alert.tiny Remove Offer
+                        button.alert.tiny Reject Offer
                 td
                   if user
                     if owner._id.toString() === user._id.toString()
-                      button.tiny#acceptOffer Accept Offer
+                      form(action='/items/accept/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure want to accept this offer?')")
+                        button.tiny#acceptOffer Accept Offer
     .row
       .small-12.columns
         if user

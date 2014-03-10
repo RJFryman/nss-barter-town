@@ -8,6 +8,20 @@ block content
           legend Add Your Junk
           .row
             .small-12.columns
+              label(for='category') Choose a Category
+                select(name='category')
+                  option Appliances
+                  option Clothing
+                  option Electronics
+                  option Furniture
+                  option Household
+                  option Pet
+                  option Services
+                  option Tools
+                  option Transportation
+                  option Other
+          .row
+            .small-12.columns
               label(for='name') Name
               input(type='text', name='name')
           .row
