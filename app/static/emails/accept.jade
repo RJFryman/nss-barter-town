@@ -1,0 +1,16 @@
+extends ./template
+
+block title
+  h1 You've Got Junk!
+
+block content
+  h2= 'Hey ' + name + '! Guess what? '
+    span(style='color: #80F000; text-align: center') You've got junk!
+  p You're now the proud owner of
+  h3(style='color: #80F000; text-align: center')= item.name
+  p(style='color: #80F000; text-align: center')= item.description
+  p and you got rid of your
+    span(style='color: #80F000')= ' ' + tradedItemName + '!'
+  p So you'll want to reach out to the person who offered it and arrange a time and place to meet up!
+  p That's it! Go forth and
+  h2(style='color: #80F000; text-align: center') SWEET YOUR JUNK!
