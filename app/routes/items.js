@@ -64,9 +64,9 @@ exports.addImage = function(req, res){
 //not tested
 exports.removePic = function(req, res){
   Item.findById(req.params.id, function(item){
-    item.removePhoto(function(err){
+    item.removePhoto(req.body.url, function(removed){
       item.update(function(){
-        res.send({success:true});
+        res.send({item:true});
       });
     });
   });

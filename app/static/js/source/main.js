@@ -18,10 +18,25 @@
     $('#capture').click(takePic);
     $('.del-sing-img').click(delItemImg);
   }
+  var imgFrame;
 
   function delItemImg(event){
-    console.log('testing');
+    debugger;
+    imgFrame = $(this);
+    var data = {url:$(this).attr('data')};
+    var id = $(this).attr('id');
+    var url ='/items/'+ id;
+    var type = 'PUT';
+    var success = removeItem;
+
+    $.ajax({url:url, type:type, data:data, success:success});
+    console.log({url:url, type:type, data:data, success:success});
+
     event.preventDefault();
+  }
+
+  function removeItem(removed){
+    imgFrame.parent().remove();
   }
 
   var photograph;

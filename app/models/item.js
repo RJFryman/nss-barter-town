@@ -85,10 +85,10 @@ Item.prototype.addPhoto = function(oldPath, filename, fn){
 
 //note tested
 Item.prototype.removePhoto = function(path, fn){
-  this.photos = _.remove(this.photos, function(photo){
+  var removed = _.remove(this.photos, function(photo){
     return photo === path;
   });
-  fn();
+  fn(removed);
 };
 
 Item.prototype.update = function(fn){

@@ -32,7 +32,7 @@ function load(app, fn){
   app.get('/items/new', d, items.new);
   app.get('/items/:id', d, items.show);
   app.del('/items/:id', d, items.destroy);
-  app.post('/items/:id/:path', d, items.removePic);
+  app.put('/items/:id', d, items.removePic);
   app.post('/items/offers/:item/:itemOffer', d, items.addOffer);
   app.del('/items/offers/:item/:itemOffer', d, items.removeOffer);
   app.post('/items/accept/:item/:itemOffer', d, items.accept);
