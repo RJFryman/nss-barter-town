@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 var users = global.nss.db.collection('users');
 var Mongo = require('mongodb');
 var request = require('request');
+var jade = require('jade');
 
 module.exports= User;
 
@@ -35,6 +36,16 @@ User.prototype.addPic = function(oldpath, fn){
   fn();
 };
 
+
+User.prototype.useWebcamPic = function(dataUrl, fn){
+  var dataString = dataUrl.split(',')[1];
+  var buffer = new Buffer(dataString, 'base64');
+  var extension = dataUrl.match(/\/(.*)\;/)[1];
+  var fullFileName = 'userWebcamPic.' + extension;
+  fs.writeFileSync(fullFileName, buffer, 'binary');
+  fn(fullFileName);
+};
+
 User.prototype.insert = function(fn){
   var self = this;
   users.findOne({email:this.email}, function(err, record){
@@ -49,16 +60,27 @@ User.prototype.insert = function(fn){
 };
 
 User.prototype.sendRegistrationEmail = function(fn){
+  // Load actual template text
+  var template = fs.readFileSync(__dirname + '/../static/emails/template.jade', 'utf8');
+  var content = fs.readFileSync(__dirname + '/../static/emails/register.jade', 'utf8');
+
+  // Compile template rendering function
+  template = jade.compile(template, { pretty: true, filename: __dirname + '/../static/emails/template.jade' });
+  content = jade.compile(content, { pretty: true, filename: __dirname + '/../static/emails/register.jade'});
+
+  // Render jade template, passing in the info
+  var output = content({ body: template(), name:this.name });
+
   var key = process.env.MAILGUN;
-  var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox46639.mailgun.org/messages';
+  var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox15938.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
     fn();
   });
   var form = post.form();
   form.append('from', 'robert.fryman@gmail.com');
   form.append('to', this.email);
-  form.append('subject', 'Welcome to Bartertown!');
-  form.append('text', 'Hello, ' + this.name + ', it\'s time to barter your crap.');
+  form.append('subject', 'Time to Sweet Your Junk!');
+  form.append('html', output);
 };
 
 User.deleteById = function(id, fn){

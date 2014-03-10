@@ -75,13 +75,17 @@ exports.removePic = function(req, res){
 
 exports.destroy = function(req, res){
   Item.findById(req.params.id, function(item){
-    if(req.session.userId === item.userId.toString()){
-      var cmd = 'rm -rf ' + __dirname + '/../static' + item.photoPath;
-      Item.deleteById(req.params.id, function(){
-        exec(cmd, function(){
-          res.redirect('/users/'+req.session.userId);
+    if(!item.offered){
+      if(req.session.userId === item.userId.toString()){
+        var cmd = 'rm -rf ' + __dirname + '/../static' + item.photoPath;
+        Item.deleteById(req.params.id, function(){
+          exec(cmd, function(){
+            res.redirect('/users/'+req.session.userId);
+          });
         });
-      });
+      }
+    }else{
+      res.redirect('/users/'+req.session.userId);
     }
   });
 };
@@ -125,9 +129,11 @@ exports.accept = function(req, res){
       itemOffer.toggleOffered();
       item.update(function(){
         itemOffer.update(function(){
-          item.sendAcceptEmail();
-          itemOffer.sendAcceptEmail();
-          res.redirect('/users/'+req.session.userId);
+          item.sendAcceptEmail(itemOffer.name, function(){
+            itemOffer.sendAcceptEmail(item.name, function(){
+              res.redirect('/users/'+req.session.userId);
+            });
+          });
         });
       });
     });
