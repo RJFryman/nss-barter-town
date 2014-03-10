@@ -2,25 +2,30 @@ extends ../shared/template
 
 block content
   .row
-    .small-12.columns
-      h1 Enter a New Item to Barter!
-  .row
-    .small-12.columns
-      form(action='/items', method='post', enctype='multipart/form-data')
-        .row
-          .small-4.columns
-            label(for='name') Name
-              input(type='text', name='name', placeholder='What\'s your item called?')
-          .small-4.columns
-            label(for='year') Year
-              input(type='text', name='year', placeholder='What year was your item made?')
-          .small-4.columns
-            label(for='cost') Cost
-              input(type='text', name='cost', placeholder='Roughly how much is your item worth now?')
-        label(for='tags') Tags
-          input(type='text', name='tags', placeholder='Give us some short tags, separated by commas, to help people find your item.')
-        label(for='description') Description
-          textarea(name='description', placeholder='Give us a nice, detailed description of your item. Make it sound awesome!')
-        label(for='photo') Add a Picture!
-          input(name='photo', type='file')
-        button Add Item!
+    .small-8.small-centered.columns
+      form(class='background', action='/items', method='post', enctype='multipart/form-data')
+        fieldset
+          legend Add Your Junk
+          .row
+            .small-12.columns
+              label(for='name') Name
+              input(type='text', name='name')
+          .row
+            .small-6.columns
+              label(for='year') Year
+              input(type='text', name='year')
+            .small-6.columns
+              label(for='cost') Cost
+              input(type='text', name='cost')
+          .row
+            .small-12.columns
+              label(for='tags') Tags
+              input(type='text', name='tags')
+            .small-12.columns
+              label(for='description') Description
+              textarea(name='description')
+            .small-12.columns
+              label(for='photo') Add a Picture!
+              input(name='photo', type='file')
+            .small-8.small-centered.columns
+              button.tiny.radius Add Item!

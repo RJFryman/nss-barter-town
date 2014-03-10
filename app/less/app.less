@@ -1,10 +1,71 @@
-@bg-color: #cccccc;
+@import url('http://fonts.googleapis.com/css?family=Lusitana');
 
 body{
   background-image: url('http://hdwallpaper2013.com/wp-content/uploads/2013/02/Cool-Designs-Wallpapers-for-Background-HD-Wallpaper.jpg');
+  background-color: grey;
 }
-h1, h2, h3, h4{
+
+h2, h3, h4, h5{
   color: white;
+  font-family: 'Lusitana', serif;
+}
+
+.user-item-list{
+  margin-top: 40px;
+}
+
+.home-text{
+  position: absolute;
+  top: 30px;
+  left: 0px;
+}
+
+#items{
+  margin-top: 50px;
+  width: 100%;
+}
+.home-body h3{
+  color: #80F800;
+}
+.home-title{
+  color: #80F800;
+  margin-top: 75px;
+  font-family: 'Lusitana', serif;
+}
+
+.intro h3{
+  color: #80F800;
+  font-family: 'Lusitana', serif;
+}
+.top-title h1{
+  color: #80F800;
+  margin-top: 75px;
+  font-family: 'Lusitana', serif;
+}
+.profile{
+  color: #80F800;
+  font-family: 'Lusitana', serif;
+}
+.user-image{
+  margin-top: 40px;
+  width: 150px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+}
+
+.item-pic{
+  margin-top: 20px;
+  width: 200px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  border-radius: 6px;
+  transition: 1s ease-in-out;
+}
+
+.item-pic:hover{
+  margin-top: 60px;
+  width: 400px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  border-radius: 6px;
+  transition: 1s ease-in-out;
 }
 
 .login-err{
@@ -43,7 +104,29 @@ h1, h2, h3, h4{
   font-weight: bold;
 }
 
+.user-items{
+  width: 100%;
+}
 
+.del-but{
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 6px;
+  padding-right: 0px;
+  padding-left: 0px;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.user-items thead{
+  background-color: #B0FF30;
+}
 
 .test{
   top: 0;
@@ -53,7 +136,9 @@ h1, h2, h3, h4{
   height: 100%;
   background-color: grey;
   opacity: .5;
+  z-index: 998;
 }
+
 .testreg{
   top: 0;
   left: 0;
@@ -74,7 +159,8 @@ h1, h2, h3, h4{
   margin-top: -50px;
   margin-left: -50px;
   background-color: white;
-  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  z-index: 999;
 }
 
 .login-form-reg fieldset{
@@ -95,7 +181,41 @@ h1, h2, h3, h4{
   margin-top: -50px;
   margin-left: -50px;
   background-color: white;
-  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  z-index: 999;
+}
+
+.background button{
+  margin-bottom: 0px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+}
+
+.pic-show{
+  width: 100px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  transition: 1s ease-in-out;
+}
+
+.pic-show:hover{
+  width: 200px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  border-radius: 6px;
+  transition: 1s ease-in-out;
+}
+.background fieldset{
+  border: none;
+}
+
+.background{
+  margin-top: 50px;
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 450px;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+  transition: 1s ease-in-out;
 }
 
 .logout{
