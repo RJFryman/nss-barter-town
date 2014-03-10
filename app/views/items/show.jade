@@ -59,7 +59,8 @@ block content
               td
                 if user
                   if owner._id.toString() === user._id.toString()
-                    button.tiny#acceptOffer Accept Offer
+                    form(action='/items/accept/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+                      button.tiny#acceptOffer Accept Offer
   .row
     .small-12.columns
       if user
