@@ -3,18 +3,29 @@ extends ../shared/template
 block content
   .row
     .small-12.columns
-      h2= 'Offered for trade by '
+      h3= 'Offered for trade by '
         a(href= '/users/' + owner._id.toString())= owner.name
   .row
     .small-12.columns.intro
-      h3= item.name
-      h3= item.year
-      h3= 'Estimated Value: $' + item.cost
-      h3= item.description
+      h5= item.name
+      h5= item.year
+      h5= 'Estimated Value: $' + item.cost
+      h5= item.description
+  if user
+    if user._id.toString() === owner._id.toString()
+      .row.add
+        .small-8.columns.add-photo
+          form(action='/items/'+item._id, method='post', enctype='multipart/form-data')
+            fieldset.add-photo-bg
+              legend Add photos
+              input(type='file' name='pic')
+              label.Upload-err User can only upload 5 images
+              button.tiny.radius Add Image
   .row
     .small-12.columns
       each photo in item.photos
         img(class='item-pic',src= photo)
+        button.alert.del-sing-img x
   if user
     if user._id.toString() !== owner._id.toString()
       .row

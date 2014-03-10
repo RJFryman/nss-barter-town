@@ -26,11 +26,13 @@ function load(app, fn){
   app.post('/login', d, users.login);
   app.post('/logout', d, users.logout);
   app.post('/items', d, items.create);
+  app.post('/items/:id', d, items.addImage);
   app.get('/items', d, items.index);
   app.get('/find', d, items.find);
   app.get('/items/new', d, items.new);
   app.get('/items/:id', d, items.show);
   app.del('/items/:id', d, items.destroy);
+  app.post('/items/:id/:path', d, items.removePic);
   app.post('/items/offers/:item/:itemOffer', d, items.addOffer);
   app.del('/items/offers/:item/:itemOffer', d, items.removeOffer);
   app.post('/items/accept/:item/:itemOffer', d, items.accept);

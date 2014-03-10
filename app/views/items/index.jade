@@ -5,9 +5,15 @@ block js
 
 block content
   body
-    if item
-      .row
-        .small-12.columns
+    h2 Junk City Items
+    h4 Click on blue text to sort
+    .row
+      .small-2.columns.limit
+        label Items per page
+        input#limit(type='text')
+    .row
+      .small-12.columns
+        .list-table.hide
           table#items
             thead
               tr
@@ -16,17 +22,18 @@ block content
                 th Description
                 th: a.sort.cost(href='#') Cost
                 th Tags
-                th Castegory
+                th Category
             tbody
-      .row
-        .small-2.columns
-          input#limit(type='text', placeholder='limit')
-        .small-5.columns
-          p
-        .small-2.columns
-          button#prev.tiny.radius.expand Previous
-        .small-1.columns
-          p#page 1
+    .row
       .small-2.columns
+        label &nbsp
+        button#prev.tiny.radius.expand Previous
+      .small-3.columns
+        &nbsp
+      .small-2.columns
+        label &nbsp
+        p#page 1
+      .small-2.columns
+        label &nbsp
         button#next.tiny.radius.expand Next
 

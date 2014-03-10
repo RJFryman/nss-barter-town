@@ -14,11 +14,18 @@
     $('.login-form-reg form').on('click', '.closeReg', closeRegPop);
     $('#makeOffer').click(makeOffer);
     $('#camerastuff').on('click', '#capture', takePic);
+    $('.del-sing-img').click(delItemImg);
+  }
+
+  function delItemImg(event){
+    console.log('testing');
+    event.preventDefault();
   }
 
   function loadItemAdd(){
     $('.background').fadeIn(800);
   }
+
   function closeRegPop(){
     $('.test').fadeOut(800);
     $('.login-form-reg').fadeOut(500);
@@ -58,17 +65,17 @@
     $('.login-form-reg').fadeOut(800);
     $('.login-form').fadeIn(800);
   }
-  
+
   function takePic(){
     var video = document.querySelector('video');
     var canvas = document.querySelector('canvas');
     var ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, 275, 206.25);
-    
+
     var photograph = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    
+
     ctx.putImageData(photograph, 0, 0);
-    
+
     event.preventDefault();
   }
 

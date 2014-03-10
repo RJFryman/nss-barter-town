@@ -35,6 +35,7 @@ exports.show = function(req, res){
   });
 };
 
+
 exports.create = function(req, res){
   req.body.userId = req.session.userId;
   var item = new Item(req.body);
@@ -48,6 +49,29 @@ exports.create = function(req, res){
     });
   });
 };
+
+
+exports.addImage = function(req, res){
+  Item.findById(req.params.id, function(item){
+    item.addPhoto(req.files.pic.path, req.files.pic.name, function(err){
+      item.update(function(){
+        res.redirect('/items/'+ item._id.toString());
+      });
+    });
+  });
+};
+
+//not tested
+exports.removePic = function(req, res){
+  Item.findById(req.params.id, function(item){
+    item.removePhoto(function(err){
+      item.update(function(){
+        res.send({success:true});
+      });
+    });
+  });
+};
+
 
 exports.destroy = function(req, res){
   Item.findById(req.params.id, function(item){

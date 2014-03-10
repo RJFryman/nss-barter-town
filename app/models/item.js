@@ -69,13 +69,25 @@ Item.prototype.mkDir = function(fn){
 
 Item.prototype.addPhoto = function(oldPath, filename, fn){
   var self = this;
-  var abspath = __dirname + '/../static';
-  var relpath = '/img/items/'+ this._id.toString() + '/' + filename;
+  if(self.photos.length < 5){
+    var abspath = __dirname + '/../static';
+    var relpath = '/img/items/'+ this._id.toString() + '/' + filename;
 
-  fs.rename(oldPath, abspath + relpath, function(err){
-    self.photos.push(relpath);
-    fn();
+    fs.rename(oldPath, abspath + relpath, function(err){
+      self.photos.push(relpath);
+      fn();
+    });
+  }
+  fn('Photo limit is 5');
+};
+
+
+//note tested
+Item.prototype.removePhoto = function(path, fn){
+  this.photos = _.remove(this.photos, function(photo){
+    return photo === path;
   });
+  fn();
 };
 
 Item.prototype.update = function(fn){

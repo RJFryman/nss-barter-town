@@ -78,8 +78,11 @@
   }
 
   function additemsToTable(payload){
+    $('.list-table').slideUp(300).delay(800).fadeIn(800);
     $('#items > tbody').empty();
-    $('#page').text(query.page);
+    $('#page').fadeIn(500, function(){
+      $('#page').text(query.page);
+    });
 
     for(var i = 0; i < payload.items.length; i++){
       additemToTable(payload.items[i]);
@@ -97,23 +100,23 @@
 
     $row.attr('data-item-id', item._id);
 
-    $name.append('<a href="/items/'+item._id.toString()+'">'+item.name+'</a>');
+    $name.append('<a href="/items/'+item._id.toString()+'">'+item.name+'</a>').fadeIn(1000);
 
-    $year.append('<a class="filter year" href="#">'+item.year+'</a>');
+    $year.append('<a class="filter year" href="#">'+item.year+'</a>').fadeIn(1000);
     if(item.description.length >= 180){
-      $description.text(item.description.toString().slice(0,179)+'...');
+      $description.text(item.description.toString().slice(0,179)+'...').fadeIn(1000);
     }else{
       $description.text(item.description);
     }
-    $cost.append('<a class="filter cost" href="#">'+item.cost+'</a>');
-    $category.append('<a class="filter category" href="#">'+item.category+'</a>');
+    $cost.append('<a class="filter cost" href="#">'+item.cost+'</a>').fadeIn(1000);
+    $category.append('<a class="filter category" href="#">'+item.category+'</a>').fadeIn(1000);
 
     for(var i = 0; i < item.tags.length; i++){
       var tag = item.tags[i];
-      $tags.append('<a class="filter tags" href="#">'+tag+'</a>'+ ' ' );
+      $tags.append('<a class="filter tags" href="#">'+tag+'</a>'+ ' ' ).fadeIn(1000);
     }
 
-    $row.append($name, $year, $description, $cost, $tags, $category);
+    $row.append($name, $year, $description, $cost, $tags, $category).fadeIn(1000);
     $('#items > tbody').append($row);
   }
 
