@@ -27,17 +27,21 @@
   var photograph;
 
   function registerUser(event){
-    var url = '/register';
-    var type = 'POST';
-    $('#registerwebcam').val(photograph);
-    var form = document.getElementById('#registrationdata');
-    var formData = new FormData(form);
-    var fileInput = document.getElementById('#registerpic');
-    var file = fileInput.files[0];
-    formData.append('pic', file);
-    var success = reloadPageRegister;
+    if($('#pw').val() === $('#pwcon').val()){
+      var url = '/register';
+      var type = 'POST';
+      $('#registerwebcam').val(photograph);
+      var form = document.getElementById('#registrationdata');
+      var formData = new FormData(form);
+      var fileInput = document.getElementById('#registerpic');
+      var file = fileInput.files[0];
+      formData.append('pic', file);
+      var success = reloadPageRegister;
 
-    $.ajax({url:url, type:type, data:formData, success:success});
+      $.ajax({url:url, type:type, data:formData, success:success});
+    }else{
+      $('.reg-err').text('Sorry, your passwords do not match.');
+    }
 
     event.preventDefault();
   }
