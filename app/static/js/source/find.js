@@ -8,11 +8,24 @@
 
   function initialize(){
     $(document).foundation();
+    $('#cats').on('click', '.filter', filteritems);
     $('#items').on('click', '.filter', filteritems);
     $('#items').on('click', '.sort', sortitems);
     $('#prev').click(clickPrev);
     $('#next').click(clickNext);
+    $('#toggleCats').click(toggleCats);
+    $('#clearFilter').click(clearFilter);
     getAllitems();
+  }
+
+  function toggleCats(){
+    $('#cats').toggleClass('hide');
+  }
+
+  function clearFilter(){
+    query = {limit:10, page:1, direction:1};
+    generateQuery();
+    event.preventDefault();
   }
 
   function sortitems(event){
