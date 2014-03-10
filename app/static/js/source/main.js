@@ -6,6 +6,7 @@
 
   function initialize(){
     $(document).foundation();
+    loadItemAdd();
     $('.togglelink').click(loadLoginPop);
     $('.togglelinkreg').click(loadRegistrationPop);
     $('.loginButton').click(loginUser);
@@ -15,6 +16,9 @@
     $('#camerastuff').on('click', '#capture', takePic);
   }
 
+  function loadItemAdd(){
+    $('.background').fadeIn(800);
+  }
   function closeRegPop(){
     $('.test').fadeOut(800);
     $('.login-form-reg').fadeOut(500);

@@ -3,18 +3,18 @@ extends ../shared/template
 block content
   .row
     .small-12.columns
-      h1= item.name + ' from ' + item.year + ' Estimated Value: $' + item.cost
-  .row
-    .small-12.columns
       h2= 'Offered for trade by '
         a(href= '/users/' + owner._id.toString())= owner.name
   .row
-    .small-12.columns
-      each photo in item.photos
-        img(src= photo)
+    .small-12.columns.intro
+      h3= item.name
+      h3= item.year
+      h3= 'Estimated Value: $' + item.cost
+      h3= item.description
   .row
     .small-12.columns
-      h3= item.description
+      each photo in item.photos
+        img(class='item-pic',src= photo)
   if user
     if user._id.toString() !== owner._id.toString()
       .row
@@ -27,44 +27,45 @@ block content
                 option(data-id= thing._id.toString())= thing.name + ': $' + thing.cost
         .small-4.columns
           button.small#makeOffer(data-id= item._id.toString()) Make Offer!
-  .row
-    .small-12.columns
-      h3 Items offered for this one
-      table
-        thead
-          th Name
-          th Year
-          th Cost
-          th Tags
-          th
-          th
-        tbody
-          each offer in offers
-            tr
-              td
-                a(href='/items/'+offer._id.toString())= offer.name
-              td= offer.year
-              td= '$' + offer.cost
-              td= offer.tags.join(', ')
-              td
-                if user
-                  if offer.userId.toString() === user._id.toString()
-                    form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
-                      input(type='hidden', name='_method', value='delete')
-                      button.alert.tiny Remove Offer
-                  if owner._id.toString() === user._id.toString()
-                    form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
-                      input(type='hidden', name='_method', value='delete')
-                      button.alert.tiny Reject Offer
-              td
-                if user
-                  if owner._id.toString() === user._id.toString()
-                    form(action='/items/accept/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+
+  if offers.length !== 0
+    .row
+      .small-12.columns
+        h3 Items offered for this one
+        table
+          thead
+            th Name
+            th Year
+            th Cost
+            th Tags
+            th
+            th
+          tbody
+            each offer in offers
+              tr
+                td
+                  a(href='/items/'+offer._id.toString())= offer.name
+                td= offer.year
+                td= offer.cost
+                td= offer.tags.join(', ')
+                td
+                  if user
+                    if offer.userId.toString() === user._id.toString()
+                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+                        input(type='hidden', name='_method', value='delete')
+                        button.alert.tiny Remove Offer
+                    if owner._id.toString() === user._id.toString()
+                      form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST')
+                        input(type='hidden', name='_method', value='delete')
+                        button.alert.tiny Remove Offer
+                td
+                  if user
+                    if owner._id.toString() === user._id.toString()
                       button.tiny#acceptOffer Accept Offer
-  .row
-    .small-12.columns
-      if user
-        if user._id.toString() === owner._id.toString()
-          form(action='/items/'+item._id.toString(), method='POST')
-            input(type='hidden', name='_method', value='delete')
-            button.alert Delete Item
+    .row
+      .small-12.columns
+        if user
+          if user._id.toString() === owner._id.toString()
+            form(action='/items/'+item._id.toString(), method='POST')
+              input(type='hidden', name='_method', value='delete')
+              button.alert Delete Item

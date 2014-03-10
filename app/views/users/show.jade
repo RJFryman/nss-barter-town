@@ -2,27 +2,30 @@ extends ../shared/template
 
 block content
   .row
-    .small-2.columns
-      img(src= showUser.pic)
-    .small-10.columns
-      h1= showUser.name
+    .small-12.columns
+      img(class='user-image', src= showUser.pic)
   .row
     .small-12.columns
-      h2= showUser.email
+      label &nbsp
+      h5='Username :    '+ " " + showUser.name
+      h5='Email :    ' + showUser.email
   .row
-    .small-12.columns
+    .small-12.columns.user-item-list
       h3= showUser.name + '\'s items'
-      table
+      table.user-items
         thead
+          th Picture
           th Name
           th Year
           th Description
           th Cost
           th Tags
-          th
+          th Remove
         tbody
           each item in items
             tr
+              if item.photos.length !== 0
+                td: a(href='/items/'+item._id.toString()): img(class='pic-show',src= item.photos[0])
               td
                 a(href='/items/'+item._id.toString())= item.name
               td= item.year
@@ -33,4 +36,4 @@ block content
                 td
                   form(action='/items/'+item._id.toString(), method='POST')
                     input(type='hidden', name='_method', value='delete')
-                    button.alert.tiny Delete Item
+                    button.alert.del-but x
