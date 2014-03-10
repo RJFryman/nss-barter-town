@@ -7,6 +7,42 @@ block content
   body
     h2 Junk City Items
     h4 Click on blue text to sort
+      .row
+        .small-6.columns
+          button#toggleCats Toggle Categories
+        .small-6.columns
+          button#clearFilter Clear Filters
+        .small-12.columns#cats.hide
+          .row
+            .small-1.columns
+              &nbsp;
+            .small-2.columns
+              a.filter.category(href='#') Appliances
+            .small-2.columns
+              a.filter.category(href='#') Clothing
+            .small-2.columns
+              a.filter.category(href='#') Electronics
+            .small-2.columns
+              a.filter.category(href='#') Furniture
+            .small-2.columns
+              a.filter.category(href='#') Household
+            .small-1.columns
+              &nbsp;
+          .row
+            .small-1.columns
+              &nbsp;
+            .small-2.columns
+              a.filter.category(href='#') Pet
+            .small-2.columns
+              a.filter.category(href='#') Services
+            .small-2.columns
+              a.filter.category(href='#') Tools
+            .small-2.columns
+              a.filter.category(href='#') Transportation
+            .small-2.columns
+              a.filter.category(href='#') Other
+            .small-1.columns
+              &nbsp;
     .row
       .small-2.columns.limit
         label Items per page

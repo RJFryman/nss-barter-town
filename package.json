@@ -11,7 +11,7 @@
     "moment":        "*",
     "mongodb":       "*",
     "bcrypt":        "*",
-    "connect-redis": "*",
+    "connect-redis": "1.4.7",
     "jade":          "*",
     "express-less":  "*",
     "request":       "*"
