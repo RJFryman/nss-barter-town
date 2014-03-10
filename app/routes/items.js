@@ -13,15 +13,24 @@ exports.new = function(req, res){
   res.render('items/new');
 };
 
+exports.find = function(req, res){
+  Item.find(req.query, function(items){
+    res.send({items:items});
+  });
+};
+
 exports.show = function(req, res){
   Item.findById(req.params.id, function(item){
     User.findById(item.userId.toString(), function(owner){
-      var offers = _.map(item.offers, function(e){
-        Item.findById(e._id.toString(), function(foundOffer){
-          return foundOffer;
+      var offers = [];
+      _.forEach(item.offers, function(e){
+        Item.findById(e.toString(), function(foundOffer){
+          offers.push(foundOffer);
         });
       });
-      res.render('items/show', {item:item, owner:owner, offers:offers});
+      Item.findByUserId(req.session.userId, function(myItems){
+        res.render('items/show', {item:item, owner:owner, offers:offers, myItems:myItems});
+      });
     });
   });
 };
@@ -42,13 +51,17 @@ exports.create = function(req, res){
 
 exports.destroy = function(req, res){
   Item.findById(req.params.id, function(item){
-    if(req.session.userId === item.userId.toString()){
-      var cmd = 'rm -rf ' + __dirname + '/../static' + item.photoPath;
-      Item.deleteById(req.params.id, function(){
-        exec(cmd, function(){
-          res.redirect('/users/'+req.session.userId);
+    if(!item.offered){
+      if(req.session.userId === item.userId.toString()){
+        var cmd = 'rm -rf ' + __dirname + '/../static' + item.photoPath;
+        Item.deleteById(req.params.id, function(){
+          exec(cmd, function(){
+            res.redirect('/users/'+req.session.userId);
+          });
         });
-      });
+      }
+    }else{
+      res.redirect('/users/'+req.session.userId);
     }
   });
 };
@@ -58,7 +71,11 @@ exports.addOffer = function(req, res){
     item.addOffer(req.params.itemOffer);
     Item.findById(req.params.itemOffer, function(itemOffer){
       itemOffer.toggleOffered();
-      res.redirect('/items/' + req.params.item);
+      item.update(function(){
+        itemOffer.update(function(){
+          res.send({success:true});
+        });
+      });
     });
   });
 };
@@ -68,7 +85,11 @@ exports.removeOffer = function(req, res){
     item.removeOffer(req.params.itemOffer);
     Item.findById(req.params.itemOffer, function(itemOffer){
       itemOffer.toggleOffered();
-      res.redirect('/items/' + req.params.item);
+      item.update(function(){
+        itemOffer.update(function(){
+          res.redirect('/items/' + req.params.item);
+        });
+      });
     });
   });
 };
@@ -80,12 +101,15 @@ exports.accept = function(req, res){
       var itemOfferUserId = itemOffer.userId;
       item.userId = itemOfferUserId;
       itemOffer.userId = itemUserId;
+      item.removeOffer(req.params.itemOffer);
       itemOffer.toggleOffered();
       item.update(function(){
         itemOffer.update(function(){
-          item.sendAcceptEmail();
-          itemOffer.sendAcceptEmail();
-          res.redirect('/user/'+req.session.userId);
+          item.sendAcceptEmail(itemOffer.name, function(){
+            itemOffer.sendAcceptEmail(item.name, function(){
+              res.redirect('/users/'+req.session.userId);
+            });
+          });
         });
       });
     });

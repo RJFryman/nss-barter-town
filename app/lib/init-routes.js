@@ -27,6 +27,7 @@ function load(app, fn){
   app.post('/logout', d, users.logout);
   app.post('/items', d, items.create);
   app.get('/items', d, items.index);
+  app.get('/find', d, items.find);
   app.get('/items/new', d, items.new);
   app.get('/items/:id', d, items.show);
   app.del('/items/:id', d, items.destroy);

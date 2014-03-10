@@ -15,6 +15,7 @@ html(class='no-js', lang='en')
     script(src='/js/vendor/lodash.js')
     script(src='/js/vendor/moment.js')
     script(src='/js/source/main.js')
+    block js
   body
     .test.hide
     .login-form.hide
@@ -68,7 +69,9 @@ html(class='no-js', lang='en')
 
       section.top-bar-section
         ul.left
-          li: a(href="/items") Sweet junk
+          li: a(href="/items") Sweet Junk
+          if user
+            li: a(href="/items/new") Add More Junk
         ul.right
           if user
             li: a(href="/users/"+user._id.toString())=user.email
