@@ -16,6 +16,12 @@
     $('#makeOffer').click(makeOffer);
     $('#getWebcam').click(getWebcam);
     $('#capture').click(takePic);
+    $('.del-sing-img').click(delItemImg);
+  }
+
+  function delItemImg(event){
+    console.log('testing');
+    event.preventDefault();
   }
 
   var photograph;
@@ -44,6 +50,7 @@
   function loadItemAdd(){
     $('.background').fadeIn(800);
   }
+
   function closeRegPop(){
     $('.test').fadeOut(800);
     $('.login-form-reg').fadeOut(500);

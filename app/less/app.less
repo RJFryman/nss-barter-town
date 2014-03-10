@@ -10,6 +10,48 @@ h2, h3, h4, h5{
   font-family: 'Lusitana', serif;
 }
 
+.add-photo{
+  margin-top: 30px;
+}
+
+.add-photo input, label{
+  color: #B0FF30;
+  font-family: 'Lusitana', serif;
+}
+
+.add-photo-bg{
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+.add legend{
+  background-color: #B0FF30;
+  padding: 5px;
+  color: black;
+  font-family: 'Lusitana', serif;
+  border-radius: 6px;
+}
+
+#page{
+  padding: 3px 0px;
+  font-size: 15px;
+  background-color: white;
+  border: 1px solid grey;
+  text-align: center;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+}
+
+#prev, #next {
+  background-color: #B0FF30;
+  color: black;
+}
+
+.limit label{
+  margin-top: 35px;
+  color: #B0FF30!important;
+  font-family: 'Lusitana', serif;
+}
+
 .user-item-list{
   margin-top: 40px;
 }
@@ -21,9 +63,14 @@ h2, h3, h4, h5{
 }
 
 #items{
-  margin-top: 50px;
+  margin-top: -10px;
   width: 100%;
 }
+
+#items thead{
+  background-color: #B0FF30;
+}
+
 .home-body h3{
   color: #80F800;
 }
@@ -53,16 +100,16 @@ h2, h3, h4, h5{
 }
 
 .item-pic{
-  margin-top: 20px;
-  width: 200px;
+  margin: 10px;
+  width: 150px;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
   border-radius: 6px;
   transition: 1s ease-in-out;
 }
 
 .item-pic:hover{
-  margin-top: 60px;
-  width: 400px;
+  margin: 60px;
+  width: 300px;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
   border-radius: 6px;
   transition: 1s ease-in-out;
@@ -122,6 +169,26 @@ h2, h3, h4, h5{
   margin-bottom: 0px;
   margin-top: 10px;
   margin-left: 20px;
+}
+
+
+.del-sing-img{
+  position: relative;
+  left: -3px;
+  top: -45px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 6px;
+  padding-right: 0px;
+  padding-left: 0px;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+  margin-bottom: 0px;
+  margin-top: -30px;
+  margin-left: -30px;
 }
 
 .user-items thead{

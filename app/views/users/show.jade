@@ -34,6 +34,6 @@ block content
               td= item.tags.join(', ')
               if user._id.toString() === showUser._id.toString()
                 td
-                  form(action='/items/'+item._id.toString(), method='POST')
+                  form(action='/items/'+item._id.toString(), method='POST', onsubmit="return confirm('Are you sure you want to delete item?')")
                     input(type='hidden', name='_method', value='delete')
                     button.alert.del-but x
