@@ -97,7 +97,8 @@
 
     $row.attr('data-item-id', item._id);
 
-    $name.text(item.name);
+    $name.append('<a href="/items/'+item._id.toString()+'">'+item.name+'</a>');
+
     $year.append('<a class="filter year" href="#">'+item.year+'</a>');
     if(item.description.length >= 180){
       $description.text(item.description.toString().slice(0,179)+'...');
