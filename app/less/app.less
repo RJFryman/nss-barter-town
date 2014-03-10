@@ -147,9 +147,14 @@ h2, h3, h4, h5{
 .closeReg{
   position: relative;
   font-size: 15px;
-  left: 400px;
-  top: -450px;
+  right: 28px;
+  top: -530px;
   color: red;
+  z-index: 1000;
+}
+
+#formdata{
+  position: relative;
 }
 
 .closeReg:hover{
@@ -226,17 +231,44 @@ h2, h3, h4, h5{
 }
 
 .login-form-reg{
-  width: 650px;
+  width: auto;
   height: 600px;
   border-radius: 6px;
   position: fixed;
-  top: 180px;
+  top: 120px;
   left: 450px;
   margin-top: -50px;
   margin-left: -50px;
   background-color: white;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
   z-index: 999;
+}
+
+#videostuff, #camerastuff, #canvasarea{
+  text-align: center;
+}
+
+#videostuff{
+  //margin-left: 60px;
+  //width: 275px;
+  padding: 5px;
+}
+
+#capture{
+  //width: 275px;
+  //margin-left: 60px;
+  padding: 5px;
+}
+
+#videostuff, #canvas, #camerastuff{
+  padding: 5px;
+}
+
+#cameraarea{
+  width: 365px;
+  border-left: 1px solid grey;
+  padding: 0px;
+  margin: 0px;
 }
 
 .login-form-reg fieldset{

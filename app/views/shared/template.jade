@@ -37,7 +37,7 @@ html(class='no-js', lang='en')
         fieldset
           legend Register
           .row
-            .small-6.columns
+            .small-12.columns#formdata
               label Enter Name
               input(type='text', name='name', autofocus)#registername
               label Enter email
@@ -51,15 +51,16 @@ html(class='no-js', lang='en')
               input(type='file', name='pic')#registerpic
               input(type='hidden', name='webcam')#registerwebcam
               button.tiny.radius.expand#getWebcam Activate Webcam
-            .small-6.columns
-              #videostuff
-                video(width='275', height='206.25', autoplay='autoplay', muted='true')
-              #camerastuff
-                button.tiny.radius.alert.expand#capture Take Picture
-              canvas#canvas(width='275', height='206.25')
               label &nbsp
               button.tiny.radius.registerButton.expand Register
               .closeReg x
+            .small-6.columns.hide#cameraarea
+              #videostuff
+                video(width='275', height='206.25', autoplay='autoplay', muted='true')
+              #camerastuff
+                button.tiny.radius.alert#capture Take Picture
+              #canvasarea
+                canvas#canvas(width='275', height='206.25')
 
     nav.top-bar
       ul.title-area

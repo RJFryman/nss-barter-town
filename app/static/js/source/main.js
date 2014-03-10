@@ -107,6 +107,8 @@
 
   function getWebcam(event){
     if(navigator.webkitGetUserMedia !== null){
+      $('#cameraarea').fadeIn(1000);
+      $(this).parent().removeClass('small-12').addClass('small-6');
       var options = {video:true, audio:false};
 
       navigator.webkitGetUserMedia(options,
