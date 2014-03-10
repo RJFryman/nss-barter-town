@@ -36,6 +36,16 @@ User.prototype.addPic = function(oldpath, fn){
   fn();
 };
 
+
+User.prototype.useWebcamPic = function(dataUrl, fn){
+  var dataString = dataUrl.split(',')[1];
+  var buffer = new Buffer(dataString, 'base64');
+  var extension = dataUrl.match(/\/(.*)\;/)[1];
+  var fullFileName = 'userWebcamPic.' + extension;
+  fs.writeFileSync(fullFileName, buffer, 'binary');
+  fn(fullFileName);
+};
+
 User.prototype.insert = function(fn){
   var self = this;
   users.findOne({email:this.email}, function(err, record){

@@ -8,9 +8,10 @@ exports.auth = function(req, res){
 };
 
 exports.register = function(req, res){
-  var user= new User(req.body);
+  var user = new User(req.body);
   user.hashPassword(function(){
-    user.addPic(req.files.pic.path, function(){
+    if(req.body.webcam.slice(0,4) === 'data'){
+      user.pic = req.body.webcam;
       user.insert(function(){
         if(user._id){
           user.sendRegistrationEmail(function(){
@@ -27,11 +28,34 @@ exports.register = function(req, res){
               }
             });
           });
-        }else{
+        } else {
           res.send({success:false});
         }
       });
-    });
+    } else {
+      user.addPic(req.files.pic.path, function(){
+        user.insert(function(){
+          if(user._id){
+            user.sendRegistrationEmail(function(){
+              User.findByEmailAndPassword(req.body.email, req.body.password, function(user){
+                if(user){
+                  req.session.regenerate(function(){
+                    req.session.userId = user._id.toString();
+                    req.session.save(function(){
+                      res.redirect('/users/'+user._id.toString());
+                    });
+                  });
+                } else {
+                  res.send({success:false});
+                }
+              });
+            });
+          }else{
+            res.send({success:false});
+          }
+        });
+      });
+    }
   });
 };
 
@@ -46,12 +70,12 @@ exports.destroy = function(req, res){
   });
 };
 /*
-exports.update = function(req, res){
-  var user = new User(req.body);
-  user.update(function(){
-    //do we want a user profile page
-    res.redirect('/');
-  });
+   exports.update = function(req, res){
+   var user = new User(req.body);
+   user.update(function(){
+//do we want a user profile page
+res.redirect('/');
+});
 };
 */
 exports.login = function(req, res){
