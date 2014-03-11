@@ -46,10 +46,44 @@ h2, h3, h4, h5{
   color: black;
 }
 
+#makeOffer{
+  background-color: #B0FF30;
+  margin-top: 35px;
+  color: black;
+  font-family: 'Lusitana', serif;
+}
+
 .limit label{
   margin-top: 35px;
   color: #B0FF30!important;
   font-family: 'Lusitana', serif;
+}
+
+.offerTable h3{
+  color: #B0FF30!important;
+}
+
+.offerTable{
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  right: 60px;
+}
+
+.removeOffer{
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 6px;
+  padding-right: 0px;
+  padding-left: 0px;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  margin-left: 40px;
 }
 
 .user-item-list{
@@ -99,16 +133,44 @@ h2, h3, h4, h5{
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
 }
 
+#cats div{
+  margin-top: 3px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+#cats div:hover{
+  font-weight: bold;
+}
+
+#cats{
+  font-size: 15px;
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+}
+
 .item-pic{
   margin: 10px;
   width: 150px;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
   border-radius: 6px;
-  transition: 1s ease-in-out;
+  transition-delay: 1s;
+  transition-delay: 1s ease-in-out;
+}
+#acceptOffer, #rejectOffer{
+  margin-top: 13px;
+  margin-bottom: 0px;
+  width: 40px;
+  height: 40px;
+  border-radius: 35px;
+  padding-left: 11px;
+  box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
 }
 
 .item-pic:hover{
-  margin: 60px;
+  margin: 10px;
   width: 300px;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
   border-radius: 6px;
@@ -118,6 +180,10 @@ h2, h3, h4, h5{
 .item-pic img{
   border-radius: 6px;
   box-shadow: -2px 4px 21px 0px rgba(0,0,0,0.75);
+}
+
+.deleteItem{
+  margin-left: 10px;
 }
 
 .login-err, .reg-err{

@@ -3,6 +3,9 @@ extends ../shared/template
 block content
   .row
     .small-12.columns
+      label &nbsp
+      label &nbsp
+      label &nbsp
       h3= 'Offered for trade by '
         a(href= '/users/' + owner._id.toString())= owner.name
   .row
@@ -14,7 +17,7 @@ block content
   if user
     if user._id.toString() === owner._id.toString()
       .row.add
-        .small-8.columns.add-photo
+        .small-4.columns.add-photo
           form(action='/items/'+item._id, method='post', enctype='multipart/form-data')
             fieldset.add-photo-bg
               legend Add photos
@@ -32,17 +35,22 @@ block content
       .row
         .small-4.columns
           h3 Offer an item for this one!
+      .row
         .small-4.columns
           select#offerOptions
             each thing in myItems
               if !thing.offered
                 option(data-id= thing._id.toString())= thing.name + ': $' + thing.cost
+      .row
         .small-4.columns
-          button.small#makeOffer(data-id= item._id.toString()) Make Offer!
+          button.small.radius#makeOffer(data-id= item._id.toString()) Make Offer!
 
   if offers.length !== 0
-    .row
+    .row.offerTable
       .small-12.columns
+        label &nbsp
+        label &nbsp
+        label &nbsp
         h3 Items offered for this one
         table
           thead
@@ -65,20 +73,21 @@ block content
                     if offer.userId.toString() === user._id.toString()
                       form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure you want to remove this offer?')")
                         input(type='hidden', name='_method', value='delete')
-                        button.alert.tiny Remove Offer
+                        button.alert.removeOffer x
                     if owner._id.toString() === user._id.toString()
                       form(action='/items/offers/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure you want to reject this offer?')")
                         input(type='hidden', name='_method', value='delete')
-                        button.alert.tiny Reject Offer
+                        button.alert.tiny.radius#rejectOffer Rej
                 td
                   if user
                     if owner._id.toString() === user._id.toString()
                       form(action='/items/accept/'+item._id.toString()+'/'+offer._id.toString(), method='POST', onsubmit="return confirm('Are you sure want to accept this offer?')")
-                        button.tiny#acceptOffer Accept Offer
+                        button.tiny.radius#acceptOffer Acpt
     .row
       .small-12.columns
         if user
           if user._id.toString() === owner._id.toString()
             form(action='/items/'+item._id.toString(), method='POST')
               input(type='hidden', name='_method', value='delete')
-              button.alert Delete Item
+              label &nbsp
+              button.tiny.alert.radius.deleteItem Delete Item
