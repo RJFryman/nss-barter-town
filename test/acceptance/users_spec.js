@@ -64,6 +64,7 @@ describe('user', function(){
       .post('/register')
       .field('name', 'Adam Thede')
       .field('email', 'adam@ast.com')
+      .field('webcam', '')
       .field('password', '1235')
       .attach('pic', filename)
       .end(function(err, res){
@@ -78,6 +79,7 @@ describe('user', function(){
       .post('/register')
       .field('name', 'Adam Thede')
       .field('email', 'sam@adam.com')
+      .field('webcam', '')
       .field('password', '1234')
       .attach('pic', filename)
       .end(function(err, res){

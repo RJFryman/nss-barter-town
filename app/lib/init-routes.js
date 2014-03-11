@@ -18,6 +18,7 @@ function load(app, fn){
   var items = require('../routes/items');
 
   app.get('/', d, home.index);
+  app.get('/about', d, home.about);
 //  app.get('/test', d, home.test);
   app.get('/register', d, users.auth);
   app.get('/users/:id', d, users.show);

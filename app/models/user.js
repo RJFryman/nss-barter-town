@@ -72,7 +72,7 @@ User.prototype.sendRegistrationEmail = function(fn){
   var output = content({ body: template(), name:this.name });
 
   var key = process.env.MAILGUN;
-  var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox15938.mailgun.org/messages';
+  var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox46639.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
     fn();
   });

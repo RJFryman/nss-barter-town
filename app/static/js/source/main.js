@@ -7,6 +7,7 @@
   function initialize(){
     $(document).foundation();
     loadItemAdd();
+    $('.close-junk-button').click(closeAddJunk);
     $('.togglelink').click(loadLoginPop);
     $('.togglelinkreg').click(loadRegistrationPop);
     $('.loginButton').click(loginUser);
@@ -19,6 +20,11 @@
     $('.del-sing-img').click(delItemImg);
   }
   var imgFrame;
+
+  function closeAddJunk(event){
+    $('.background').fadeOut(slow);
+    event.preventDefault();
+  }
 
   function delItemImg(event){
     if(confirm('Are you sure you want to delete this photo?')){
@@ -65,7 +71,7 @@
 
   function reloadPageRegister(data){
     if(data.success === false){
-    $('.errorReg').text('User Already Exists');
+      $('.errorReg').text('User Already Exists');
     }
     console.log(data);
   }

@@ -57,7 +57,6 @@ block content
             th Name
             th Year
             th Cost
-            th Tags
             th
             th
           tbody
@@ -67,7 +66,6 @@ block content
                   a(href='/items/'+offer._id.toString())= offer.name
                 td= offer.year
                 td= offer.cost
-                td= offer.tags.join(', ')
                 td
                   if user
                     if offer.userId.toString() === user._id.toString()

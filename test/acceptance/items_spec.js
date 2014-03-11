@@ -128,7 +128,7 @@ describe('Item', function(){
         request(app)
         .post('/items/offers/'+i2._id.toString() +'/'+i1._id.toString())
         .set('cookie', cookie)
-        .expect(302, done);
+        .expect(200, done);
       });
     });
   });

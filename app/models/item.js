@@ -78,8 +78,9 @@ Item.prototype.addPhoto = function(oldPath, filename, fn){
       self.photos.push(relpath);
       fn();
     });
+  }else{
+    fn('Photo limit is 5');
   }
-  fn('Photo limit is 5');
 };
 
 
@@ -172,7 +173,7 @@ Item.prototype.sendAcceptEmail = function(tradedItemName, fn){
     // Render jade template, passing in the info
     var output = content({ body: template(), item:self, name:foundUser.name, tradedItemName:tradedItemName });
     var key = process.env.MAILGUN;
-    var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox15938.mailgun.org/messages';
+    var url = 'https://api:' + key + '@api.mailgun.net/v2/sandbox46639.mailgun.org/messages';
     var post = request.post(url, function(err, response, body){
       fn();
     });
