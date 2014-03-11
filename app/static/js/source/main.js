@@ -21,17 +21,19 @@
   var imgFrame;
 
   function delItemImg(event){
-    debugger;
-    imgFrame = $(this);
-    var data = {url:$(this).attr('data')};
-    var id = $(this).attr('id');
-    var url ='/items/'+ id;
-    var type = 'PUT';
-    var success = removeItem;
+    if(confirm('Are you sure you want to delete this photo?')){
+      imgFrame = $(this);
+      var data = {url:$(this).attr('data')};
+      var id = $(this).attr('id');
+      var url ='/items/'+ id;
+      var type = 'PUT';
+      var success = removeItem;
 
-    $.ajax({url:url, type:type, data:data, success:success});
-    console.log({url:url, type:type, data:data, success:success});
+      $.ajax({url:url, type:type, data:data, success:success});
+      console.log({url:url, type:type, data:data, success:success});
 
+      event.preventDefault();
+    }
     event.preventDefault();
   }
 
@@ -62,6 +64,9 @@
   }
 
   function reloadPageRegister(data){
+    if(data.success === false){
+    $('.errorReg').text('User Already Exists');
+    }
     console.log(data);
   }
 

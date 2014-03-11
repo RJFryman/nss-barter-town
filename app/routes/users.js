@@ -24,12 +24,12 @@ exports.register = function(req, res){
                   });
                 });
               } else {
-                res.send({success:false});
+                res.redirect('/');
               }
             });
           });
         } else {
-          res.send({success:false});
+          res.redirect('/');
         }
       });
     } else {
@@ -46,12 +46,12 @@ exports.register = function(req, res){
                     });
                   });
                 } else {
-                  res.send({success:false});
+                  res.redirect('/');
                 }
               });
             });
           }else{
-            res.send({success:false});
+            res.redirect('/');
           }
         });
       });

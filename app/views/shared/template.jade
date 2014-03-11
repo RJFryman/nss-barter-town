@@ -22,12 +22,13 @@ html(class='no-js', lang='en')
       form#login-data
         fieldset
           legend Login
+          label.login-err
           label Enter email
           input(type='email', name='email', autofocus)
-          label.login-err
+          label
           label Enter Password
           input(type='password', name='password')
-          label.login-err
+          label
           button.tiny.radius.loginButton Login
           .closelogin x
 
@@ -36,6 +37,7 @@ html(class='no-js', lang='en')
       form(action='/register', method='POST', enctype='multipart/form-data')#registrationdata
         fieldset
           legend Register
+          label.errorReg
           .row
             .small-12.columns#formdata
               label Enter Name
