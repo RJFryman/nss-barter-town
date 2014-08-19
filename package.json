@@ -1,9 +1,17 @@
 {
-  "name": "application-name",
+  "name": "Sweet-Junk",
+  "repository" : {
+    "type" : "git",
+    "url"  : "https://github.com/adamthede/nss-barter-town"
+  },
   "version": "0.0.1",
+  "bin": {"coveralls" : "./node_modules/coveralls/bin/coveralls.js"},
   "private": true,
   "scripts": {
-    "start": "node app/app.js"
+    "start"     : "node app/app.js",
+    "test"      : "mocha --recursive test",
+    "testwatch" : "mocha -w --recursive test",
+    "coveralls" : "./node_modules/mocha/bin/mocha test --recursive -r blanket -R mocha-lcov-reporter | coveralls"
   },
   "dependencies": {
     "express":       "3.5.0",
@@ -28,4 +36,3 @@
     "supertest":            "0.9.0"
   }
 }
-
